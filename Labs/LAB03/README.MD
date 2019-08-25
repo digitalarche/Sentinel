@@ -79,3 +79,25 @@ In this task, you will learn to proactively investigate using Sentinel Dashboard
 3.	Taka a moment to browse the list of built-in Dashboards such as **Azure Activity, Azure AD Sign-in logs, Office 365**, and third-party Dashboards for products from vendors like Symantec and Palo alto. It is important to understand that **Dashboards** are typically used with Data connectors. In fact, when you add a **Data connector**, you typically receive a **Recommended dashboard**, as in this example:
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/connection.PNG
 )<br><br>
+
+4.	For this exercise, we’ll be using the **Insecure Protocols** built-in dashboard.
+5.	From the **Dashboards** blade, click on **Installed**. This brings up a list of previously installed Dashboards.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/installed.PNG
+)<br><br>
+
+6.	Click on **Insecure Protocols**. In the lower right-hand corner, click **View dashboard** in order to bring up the dashboard.
+7.	The **Insecure Protocols** dashboard visually represents Security log data from on-premise or IaaS Active Directory Domain Controllers. Specifically, it represents data detailing which insecure protocols are currently in use and their data flows throughout the estate.
+8.	Take a moment to browse the dashboard. This dashboard addresses the problem of organizations that wish to remove insecure protocols (like NTLMv1, SMB1, wDigest and weak Kerberos ciphers) but are unable to do so for fear of breaking critical business systems. They need to remediate the sources before they can disable the protocols. And for that they need data visualization.<br>
+
+**Step 2**: Dive deeper in the Insecure Protocols Dashboard to Investigate Security Data
+1.	Let’s take a look at the overview graph titled **Insecure Protocols**.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash03.PNG
+)<br><br>
+
+2.	On the pie chart, we can immediately see something important. Out of all the Insecure Protocols that could be running in this estate, only Insecure LDAP shows up. That tell us that, so long as this trend continues, we could safely turn off other protocols such as NTLMv1 and SMB1. Mouse over the pie chart to conform that 100% of the Insecure Protocols in the environment are Insecure LDAP.
+
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash04.PNG
+)<br><br>

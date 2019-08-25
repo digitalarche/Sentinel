@@ -91,7 +91,8 @@ SecurityEvent
 | where Account !endswith "$" and Account != @"NT AUTHORITY\LOCAL SERVICE" and Account != @"NT AUTHORITY\SYSTEM"
 | summarize count() by Computer, Account, LogonTypeName
 ```
-4.	Examine the output. Here you would hunt for any Accounts that you would not expect to log onto DCs. For example, an account that did not belong to a member of the IT staff (and specifically an Active Directory administrator) would throw a red flag to take action. You could also additionally hunt for discrepancies in logon times, for example, by modifying the query in various ways.\
+4.	Examine the output. Here you would hunt for any Accounts that you would not expect to log onto DCs. For example, an account that did not belong to a member of the IT staff (and specifically an Active Directory administrator) would throw a red flag to take action. You could also additionally hunt for discrepancies in logon times, for example, by modifying the query in various ways.
+
 5.	In the query results, do you see any accounts that you would flag with your customer? In the example below, we see an account called victim7 having logged into DC03. That is definitely an indicator of compromise. We would need, in this case, to take action against both the account and potentially inside of Active Directory. We could even be in an incident response type of scenario.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt13.PNG
@@ -102,7 +103,7 @@ SecurityEvent
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt14.PNG
 )<br><br>
 
-**Task 4:** Craft and Execute a Unique Hunting Query to Investigate a Distinct Security Concern<br>
+**Task 4: Craft and Execute a Unique Hunting Query to Investigate a Distinct Security Concern**<br>
 
 In this Task, you will pick up where the Insecure Protocols dashboard left off. You will craft a query to hunt for the use of Legacy Protocols against Azure AD. One source of legacy protocols is often, but not exclusively, the use of mail browsers accessing Office 365/Exchange Online. In reality, you could make this a dashboard, or an extension of the Insecure Protocols dashboard. But in the interest of time, here you will craft this activity as a Hunting Query.<br>
 1.	From within the Hunting section of the portal, Click on the + **New Query** button
@@ -126,11 +127,11 @@ SigninLogs
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt16.PNG
 )<br><br>
 
-In this example, my user name is User43.
-3.	Leave the **Entity mapping** fields blank.
-4.	Add the Tactics that you think best match the attacker tactics you are hunting for. For example, **Initial Access, Privilege Escalation and Credential Access** are all risks of using Legacy Protocols.
-5.	Click **Create.**
-6.	On the main Hunting page, examine your new query.
+In this example, my user name is User43.<br>
+3.	Leave the **Entity mapping** fields blank.<br>
+4.	Add the Tactics that you think best match the attacker tactics you are hunting for. For example, **Initial Access, Privilege Escalation and Credential Access** are all risks of using Legacy Protocols.<br>
+5.	Click **Create.**<br>
+6.	On the main Hunting page, examine your new query.<br>
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt17.PNG
 )<br><br>

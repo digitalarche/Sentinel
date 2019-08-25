@@ -88,7 +88,7 @@ o	Host -> ImpactedGroup (Click Add)
 6.	Set the Alert **scheduling Frequency** to 5 minutes and Period to 1 hour
 7.	Set **Alert suppression** to On and Suppress alerts for 1 hour
 
-## Task 4: Review your Cases
+## Task 4: Review your Incidents
 1.	Open a new browser tab and Navigate to http://aka.ms/sentinel-investigation to activate the Sentinel Investigation Preview<br>
 2.	Navigate back to Azure Sentinel -> Cases
 3.	Locate your case standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)

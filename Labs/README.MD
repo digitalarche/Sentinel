@@ -37,6 +37,4 @@ Password: **XXX**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/workspace.PNG
 )<br><br>
-=======
-   ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/blob/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal1.PNG)<br>
->>>>>>> 40dbe29ee4661fa747a0f2998163ad4789cc9a4a
+

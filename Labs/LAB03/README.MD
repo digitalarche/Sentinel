@@ -62,3 +62,16 @@ Password: **Ask the trainer**
 
 In this example, the administrator account has failed to log on. This could be very telling as an early indicator of attack. Why is someone logging on (and failing) using the administrator account?<br>
 12.	Click *Azure Sentinel – Overview** to return to the Sentinel Overview page.
+
+**Task 3**: Utilize Dashboards to Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities<br>
+**Step 1**: Learn to navigate the Dashboards frame<br>
+In this task, you will learn to proactively investigate using Sentinel Dashboards. Sentinel Dashboards provide visualized data from your connected data sources to help render them proactively actionable.
+1.	From the Sentinel Overview page, click on Dashboards.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash01.PNG
+)<br><br>
+
+2.	On the next blade that appears, click All.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash02.PNG
+)<br><br>

@@ -107,8 +107,8 @@ o	Host -> ImpactedGroup (Click Add)
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest02.PNG
 )<br><br>
 
-## Task 5: Create a playbook to respond to your case
-In this playbook we will be adding a user into a group based on a case.  This group is already linked to a conditional access policy which will block user logons to all cloud applications.
+## Task 5: Create a playbook to respond to your Incidents
+In this playbook we will be adding a user into a group based on a Incidents.  This group is already linked to a conditional access policy which will block user logons to all cloud applications.
 
 1.	Within Azure Sentinel, Navigate to **Playbooks**
 2.	Click **Add Playbook**
@@ -138,11 +138,11 @@ In this playbook we will be adding a user into a group based on a case.  This gr
 )<br><br>
 16.	Click **Save**
 
-## Task 6: Use your new playbook to respond to a case
+## Task 6: Use your new playbook to respond to a Incidents
 1.	Navigate back to **Sentinel -> Incidents** in the Azure Portal
-2.	Click on your case standardXX – Failed Logon
+2.	Click on your Incidents standardXX – Failed Logon
 3.	Click **View full details**
-4.	Under the Case, click **View playbooks**
+4.	Under the Incidents, click **View playbooks**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/viewplay.PNG
 

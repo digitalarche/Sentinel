@@ -59,3 +59,6 @@ Password: **Ask the trainer**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/Atype.PNG
 )<br><br>
+
+In this example, the administrator account has failed to log on. This could be very telling as an early indicator of attack. Why is someone logging on (and failing) using the administrator account?
+12.	Click *Azure Sentinel – Overview** to return to the Sentinel Overview page.

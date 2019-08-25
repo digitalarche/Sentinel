@@ -4,7 +4,7 @@
 In this technical workshop, you will not need to access any IaaS or any other machines directly. Instead, you will use your own computer to access a preconfigured lab in Azure.
 
 #### User accounts <br>
-To access the azure lab, you will navigate to:(https://portal.azure.com)<br>
+To access the azure lab, you will navigate to:https://portal.azure.com<br>
 You will then logon with the following account:
 **AdminXX@sentinellab.xyz***, where “XX” is the number you have been assigned at the start of class.<br>
 For example, if I was assigned number 47, my username would be **user47@sentinellab.xyz**<br>
@@ -19,6 +19,7 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 1.	In a browser, navigate to https://portal.azure.com.
 2.	In the window that opens, click Use another account. 
 
+<<<<<<< HEAD
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal1.PNG
 )<br><br>
 
@@ -36,3 +37,6 @@ Password: **XXX**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/workspace.PNG
 )<br><br>
+=======
+   ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/blob/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal1.PNG)<br>
+>>>>>>> 40dbe29ee4661fa747a0f2998163ad4789cc9a4a

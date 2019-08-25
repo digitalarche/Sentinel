@@ -4,7 +4,7 @@
 In this technical workshop, you will not need to access any IaaS or any other machines directly. Instead, you will use your own computer to access a preconfigured lab in Azure.
 
 #### User accounts <br>
-To access the azure lab, you will navigate to:(https://portal.azure.com)<br>
+To access the azure lab, you will navigate to:https://portal.azure.com<br>
 You will then logon with the following account:
 **AdminXX@sentinellab.xyz***, where “XX” is the number you have been assigned at the start of class.<br>
 For example, if I was assigned number 47, my username would be **user47@sentinellab.xyz**<br>

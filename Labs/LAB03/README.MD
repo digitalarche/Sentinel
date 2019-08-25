@@ -75,3 +75,7 @@ In this task, you will learn to proactively investigate using Sentinel Dashboard
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash02.PNG
 )<br><br>
+
+3.	Taka a moment to browse the list of built-in Dashboards such as **Azure Activity, Azure AD Sign-in logs, Office 365**, and third-party Dashboards for products from vendors like Symantec and Palo alto. It is important to understand that **Dashboards** are typically used with Data connectors. In fact, when you add a **Data connector**, you typically receive a **Recommended dashboard**, as in this example:
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/connection.PNG
+)<br><br>

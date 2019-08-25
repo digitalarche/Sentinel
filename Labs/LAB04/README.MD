@@ -4,7 +4,8 @@
 As in Task 1, we will be proactively hunting for Indicators of Attack in Sentinel. In that task we were doing so visually through the use of dashboards. Here, we will use built-in KQL queries to identify signs of potential problems.
 1.	From the Azure Sentinel homepage, click on **Hunting.**
 
-2.	In the pane that opens, click on Hunting.
+2.	In the pane that opens, click on Hunting.<br>
+
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt01.PNG
 )<br><br>
 
@@ -20,7 +21,8 @@ As in Task 1, we will be proactively hunting for Indicators of Attack in Sentine
 
 6.	Look at the Results column. Note that several of these queries have returned results. These require further investigation. You will want to help your customers pay special investigative attention to the results of queries like New processes observed in last 24 hours, and uncommon processes – bottom 5%. These can be indicators of compromise that are often missed.
 
-**Task 2.** Run Several Single Hunting Queries and Examine the Output in Detail<br>
+**Task 2. Run Several Single Hunting Queries and Examine the Output in Detail**<br>
+
 In this Task, we will run several single queries to hunt for indicators of compromise.
 **Step 1:** Run the New processes observed Query and Examine the Output<br>
 1.	Click on the query New processes observed in the last 24 hours.
@@ -29,7 +31,7 @@ In this Task, we will run several single queries to hunt for indicators of compr
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt04.PNG
 )<br><br>
 
-3.	Optional: for background information, you may click on read more on mitre.com. This is an excellent knowledge base of adversary tactics and techniques that have been documented in the wild.
+3.	**Optional:** for background information, you may click on read more on mitre.com. This is an excellent knowledge base of adversary tactics and techniques that have been documented in the wild.
 4.	Click **Run Query** and then click **View Results**. This launches the Logs page, pre-populates the KQL query, and displays the results.
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt05.PNG
 )<br><br>
@@ -75,4 +77,82 @@ In this Task, we will run several single queries to hunt for indicators of compr
 
 1.	In this Task, we want to investigate the accounts that have logged onto the DCs in the last day.
 2.	Click the **Plus** (+) sign next to New Query 1.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt12.PNG
+)<br><br>
+
+3.	In the new query window, copy the text of this query to investigate the accounts that have logged onto the DCs:
+
+```powershell
+SecurityEvent
+| where EventID == 4624
+| where TimeGenerated >= ago(3d)
+| where Computer startswith "DC01" or Computer startswith "DC03" or Computer startswith "DC04"
+| where Account !endswith "$" and Account != @"NT AUTHORITY\LOCAL SERVICE" and Account != @"NT AUTHORITY\SYSTEM"
+| summarize count() by Computer, Account, LogonTypeName
+```
+4.	Examine the output. Here you would hunt for any Accounts that you would not expect to log onto DCs. For example, an account that did not belong to a member of the IT staff (and specifically an Active Directory administrator) would throw a red flag to take action. You could also additionally hunt for discrepancies in logon times, for example, by modifying the query in various ways.\
+5.	In the query results, do you see any accounts that you would flag with your customer? In the example below, we see an account called victim7 having logged into DC03. That is definitely an indicator of compromise. We would need, in this case, to take action against both the account and potentially inside of Active Directory. We could even be in an incident response type of scenario.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt13.PNG
+)<br><br>
+
+6.	At the top of the page, click **Azure Sentinel – Hunting** to return to the Hunting pane.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt14.PNG
+)<br><br>
+
+**Task 4:** Craft and Execute a Unique Hunting Query to Investigate a Distinct Security Concern<br>
+
+In this Task, you will pick up where the Insecure Protocols dashboard left off. You will craft a query to hunt for the use of Legacy Protocols against Azure AD. One source of legacy protocols is often, but not exclusively, the use of mail browsers accessing Office 365/Exchange Online. In reality, you could make this a dashboard, or an extension of the Insecure Protocols dashboard. But in the interest of time, here you will craft this activity as a Hunting Query.<br>
+1.	From within the Hunting section of the portal, Click on the + **New Query** button
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt15.PNG
+)<br><br>
+
+
+2.	On the Create custom query page, Fill in the following information
+**Name:** Azure AD Legacy Protocol – Admin[Number]
+[Where Admin1 is the name of your logon. For Example, if my logon is Admin 43, then the Name field would read **Azure AD Legacy Protocol – Admin43.**]<br>
+**Description:** Hunt for Legacy Protocols across the estate hitting Azure AD.<br>
+**Custom query:**
+
+```powershell
+SigninLogs
+| where ClientAppUsed in ('Other clients; Older office clients', 'Other clients', 'Other clients; IMAP', 'Other clients; POP', 'Other clients; SMTP')
+| where TimeGenerated >ago(30d)
+| summarize count() by UserPrincipalName, IPAddress, ClientAppUsed
+```
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt16.PNG
+)<br><br>
+
+In this example, my user name is User43.
+3.	Leave the **Entity mapping** fields blank.
+4.	Add the Tactics that you think best match the attacker tactics you are hunting for. For example, **Initial Access, Privilege Escalation and Credential Access** are all risks of using Legacy Protocols.
+5.	Click **Create.**
+6.	On the main Hunting page, examine your new query.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt17.PNG
+)<br><br>
+
+7.	Click **Run all queries** to include your new query in the overall Hunting experience.
+8.	Note: If you receive an exclamation point for the result, do not worry. This is an intermittent known issue and should be ignored for now.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt18.PNG
+)<br><br>
+
+10.	Click on your new query, click **Run Query** and then click **View Results**.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt19.PNG
+)<br><br>
+
+11.	On the following page, examine the output. You are now able to Hunt for Users and IP Addresses that are using Legacy Protocols to access Azure AD; you also know the actual protocol used (IMAP, POP, etc.). Finally, the advantage of creating a Hunting Query is that anyone in your company can now easily reuse your work to hunt for misconfigurations or indicators of attack.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt20.PNG
+)<br><br>
+
+12.	At the top, click **Azure Sentinel – Hunting.**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt21.PNG
+)<br><br>
 

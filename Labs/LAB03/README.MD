@@ -112,3 +112,42 @@ In this task, you will learn to proactively investigate using Sentinel Dashboard
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash06.PNG
 )<br><br>
+
+4.	On the far right, we can also see a table containing a filtered subset of the data (Insecure LDAP, by details).
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash07.PNG
+)<br><br>
+5.	Sometimes we will need to assist our customers in delving deeper into a particular data set or sets. In order to do that, we will often want to drill down closer to the actual data collected by Sentinel (Log Analytics on the back end). Let’s do this for this visualizer, Insecure LDAP by details.
+6.	Click on the Analytics Blade icon in the upper right corner of the visualizer
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash08.PNG
+)<br><br>
+7.	This brings up the Kusto Query Language (KQL) query that is used to populate the visualizer. Peruse the query.
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash09.PNG
+)<br><br>
+8.	This query is asking for logs with EventID 2889 (insecure LDAP bind) and is doing some extractions as well as RegEx matching to put the data in an acceptable format. It is summarizing the data by count (Account, IPAddress) and sorting it in descending order. We can see this in the data that is returned.
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash10.PNG
+)<br><br>
+9.	We see now that we have an actionable set of data. We know the accounts and IPAddresses that are issuing Insecure LDAP binds. We know where we need to look in order to remediate the problem and ultimately to disallow Insecure LDAP throughout our estate.
+10.	Let’s say we needed to go a bit deeper. For example, maybe we need to know the Domain Controller being targeted by the Insecure LDAP binds. We can easily do that in the following steps.
+11.	Highlight the whole query, right click and click **Copy.**
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash11.PNG
+)<br><br>
+12.	At the top, click the **Plus Sign** to open a new Query window.
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash12.PNG
+)<br><br>
+13.	In the window that opens, Paste the copied query.
+14.	Rem out the last two lines using backslashes, like this:
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash13.PNG
+)<br><br>
+15.	Change the **Time range** to **Last 7 days** and click Run 
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash14.PNG
+)<br><br>
+16.	This returns the results that are not grouped – closer to what you might think of as “raw” log data. Click one of the chevrons to the left side of the screen in order to examine one of these logs.
+17.	This type of data can help fill in the missing pieces to our story. Depending on which log you clicked, you can gain the missing information. In the example below, we see that victim7 made an Insecure LDAP bind from IP 10.1.0.4 and against DC04.
+18.	Click on Dashboard in the upper right corner, to return to the dashboard.
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash15.PNG
+)<br><br>
+
+19.	On the dashboard page, click on the shield in the upper left corner, next to Insecure Protocols overview.
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash16.PNG
+)<br><br>
+20.	This returns us to the Azure Sentinel homepage.

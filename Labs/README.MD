@@ -1,20 +1,11 @@
-# Introduction
+## Exercise 3: Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities Visually 
+In this exercise, you will learn how to access Azure Sentinel and how to use a Dashboard to view data visually. You will also learn how to examine the underlying Kusto queries, and to change them.
+For this lab, Data connectors have already been added and appropriately configured as necessary.<br>
 
-**Objectives:**<br>
-After completing this lab, you will be able to:<br>
-•	Deploy Azure Sentinel as a platform for visualizing, investigating, and alerting on your customer's security big data<br>
-•	Confidently use Sentinel to render your customer's visualized data truly actionable<br>
-•	Respond to security incidents and Indicators of Compromise discovered with Sentinel<br>
-•	Proactively hunt for misconfigurations and Indicators of Compromise with hunting queries<br>
+**Task 1:** Log on to Azure and Navigate to Sentinel
+In this task, you will log into the Azure portal and navigate to Sentinel.
+1.	In a browser, navigate to https://portal.azure.com.
+2.	In the window that opens, click **Use another account**.
 
-**Prerequisites:**<br>
-Before working on this lab, the following helps:<br>
-•	Working knowledge of SIEM and SOAR technology<br>
-•	Familiarity with common attack scenarios and techniques<br>
-•	Familiarity with Azure Playbooks and automation<br>
-•	Awareness of Kusto Query Language (KQL)<br>
-
-The following lab is based on the Lab written by **Brian Delaney**, Principal PFE and **Jon Shectman**, Associate Architect
-
-Enjoy! <br>
-The Security CxE Team
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
+)<br><br>

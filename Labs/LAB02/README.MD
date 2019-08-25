@@ -6,7 +6,7 @@ In this task you will logon to the My Apps portal as a standard user to confirm 
 1.	In a browser, navigate to https://myapps.microsoft.com
 2.	In the window that opens, click Use another account. 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/login.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
 )<br><br>
 
 3.	Enter the account information:<br>
@@ -22,7 +22,7 @@ In this task you will log into the Azure portal and navigate to Sentinel.
 1.	In a browser, navigate to https://portal.azure.com.
 2.	In the window that opens, click Use another account. 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/login.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
 )<br><br>
 
 3.	Enter the account information:<br>
@@ -151,7 +151,7 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 7.	Navigate to https://myapps.microsoft.com
 8.	In the window that opens, click **Use another account**. 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/login.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
 )<br><br>
 
 9.	Enter the account information:

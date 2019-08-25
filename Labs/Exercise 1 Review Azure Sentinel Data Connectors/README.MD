@@ -1,20 +1,40 @@
 # Introduction
 
-**Objectives:**<br>
-After completing this lab, you will be able to:<br>
-•	Deploy Azure Sentinel as a platform for visualizing, investigating, and alerting on your customer's security big data<br>
-•	Confidently use Sentinel to render your customer's visualized data truly actionable<br>
-•	Respond to security incidents and Indicators of Compromise discovered with Sentinel<br>
-•	Proactively hunt for misconfigurations and Indicators of Compromise with hunting queries<br>
+#### Lab technology
+In this technical workshop, you will not need to access any IaaS or any other machines directly. Instead, you will use your own computer to access a preconfigured lab in Azure.
 
-**Prerequisites:**<br>
-Before working on this lab, the following helps:<br>
-•	Working knowledge of SIEM and SOAR technology<br>
-•	Familiarity with common attack scenarios and techniques<br>
-•	Familiarity with Azure Playbooks and automation<br>
-•	Awareness of Kusto Query Language (KQL)<br>
+#### User accounts <br>
+To access the azure lab, you will navigate to:https://portal.azure.com<br>
+You will then logon with the following account:
+**AdminXX@sentinellab.xyz***, where “XX” is the number you have been assigned at the start of class.<br>
+For example, if I was assigned number 47, my username would be **user47@sentinellab.xyz**<br>
+Username: **AdminXX@sentinellab.xyz**<br>
+Password: **xxxxxxxx**
 
-The following lab is based on the Lab written by **Brian Delaney**, Principal PFE and **Jon Shectman**, Associate Architect
 
-Enjoy! <br>
-The Security CxE Team
+# Exercise 1: Review Azure Sentinel Data Connectors
+In this exercise you will be reviewing the data connectors of Azure Sentinel to confirm that data is already being collected in the Sentinel Workspace.  Data connectors are critical to a setup of Azure Sentinel so that data can flow into the workspace.  To save time, these data connectors have been configured in advance.
+Task 1: Log on to Azure and Navigate to Sentinel
+In this task, you will log into the Azure portal and navigate to Sentinel.
+1.	In a browser, navigate to https://portal.azure.com.
+2.	In the window that opens, click Use another account. 
+
+<<<<<<< HEAD
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal1.PNG
+)<br><br>
+
+3.	Enter the account information:
+Username: **AdminXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)<br>
+Password: **XXX**
+
+4.	This brings you to the Azure Home. In the box at the top, search for **Sentinel**.
+5.	In the results, click on **Azure Sentinel (preview)**.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal2.PNG
+)<br><br>
+
+6.	Click **briandel**, which is the name of the Sentinel Workspace.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/workspace.PNG
+)<br><br>
+

@@ -121,5 +121,45 @@ In this playbook we will be adding a user into a group based on a case.  This gr
 9.	Click **New Step**
 10.	Search for **Sentinel** and click on the **Azure Sentinel** icon and click **Get Accounts (preview)**
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest02.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/play01.PNG
+)<br><br>
+
+11.	Click the text box **Entities List** and from the flyout, select **Entities**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/entat01.PNG
+)<br><br>
+
+12.	Click **New Step** and search for Azure AD
+13.	Select **Add user to group**
+14.	Under Group ID, enter 4aa42844-7b1a-410f-b4eb-aacdc3e98b92
+15.	Under User ID, select Accounts AAD user ID from the flyout
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/accountAAD.PNG
+)<br><br>
+16.	Click **Save**
+
+## Task 6: Use your new playbook to respond to a case
+1.	Navigate back to **Sentinel -> Incidents** in the Azure Portal
+2.	Click on your case standardXX – Failed Logon
+3.	Click **View full details**
+4.	Under the Case, click **View playbooks**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/viewplay.PNG
+
+5.	From the list of Playbooks locate **standardXX-Block-With-Conditional-Access-Policy** and click **Run**
+6.	Close all browser windows and open a new browser
+7.	Navigate to https://myapps.microsoft.com
+8.	In the window that opens, click **Use another account**. 
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/login.PNG
+)<br><br>
+
+9.	Enter the account information:
+Username: **standardXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)
+Password: **Ask the trainer**
+10.	You will now see that access to the my apps portal has been blocked due to conditional access
+
+10.	You will now see that access to the my apps portal has been blocked due to conditional access
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/myapp.PNG
 )<br><br>

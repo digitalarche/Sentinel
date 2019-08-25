@@ -101,3 +101,14 @@ In this task, you will learn to proactively investigate using Sentinel Dashboard
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash04.PNG
 )<br><br>
+
+3.	We can also drop down to the Insecure LDAP section of the page (directly below the Overview) for more insightful data representations. Step 3: Understand and Manipulate the Insecure Protocol Queries Behind the Dashboard<br>
+1.	On the **Insecure Protocols** dashboard, scroll down to **Insecure LDA**P**. This was the most active Insecure Protocol in the estate, so it makes sense to examine it closely.
+2.	Note that we can drill down in a number of ways – by **Client, Time**, and by **Details**.
+3.	By clicking on portions of the pie chart on the far left, Insecure LDAP, by client, we can carve the data by client. 
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash05.PNG
+)<br><br>
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash06.PNG
+)<br><br>

@@ -19,4 +19,20 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 1.	In a browser, navigate to https://portal.azure.com.
 2.	In the window that opens, click Use another account. 
 
-   ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/blob/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal1.PNG)<br>
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal1.PNG
+)<br><br>
+
+3.	Enter the account information:
+Username: **AdminXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)<br>
+Password: **XXX**
+
+4.	This brings you to the Azure Home. In the box at the top, search for **Sentinel**.
+5.	In the results, click on **Azure Sentinel (preview)**.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal2.PNG
+)<br><br>
+
+6.	Click **briandel**, which is the name of the Sentinel Workspace.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/workspace.PNG
+)<br><br>

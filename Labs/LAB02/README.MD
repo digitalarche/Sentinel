@@ -8,3 +8,16 @@ In this task you will logon to the My Apps portal as a standard user to confirm 
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/login.PNG
 )<br><br>
+
+3.	Enter the account information:<br>
+Username: **standardXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)
+Password: **XXXX**
+4.	Confirm you have access to the My Apps portal.
+5.	Close all instances of your browser and Navigate back to https://myapps.microsoft.com
+6.	This time, when logging on as **standardxx@sentinellab.xyz** type in an **incorrect password**
+7.	Repeat this invalid logon attempt 5 times
+
+**Task 2**: Log on to Azure and Navigate to Sentinel
+In this task you will log into the Azure portal and navigate to Sentinel.
+1.	In a browser, navigate to https://portal.azure.com.
+2.	In the window that opens, click Use another account. 

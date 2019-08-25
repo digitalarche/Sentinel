@@ -19,4 +19,4 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 1.	In a browser, navigate to https://portal.azure.com.
 2.	In the window that opens, click Use another account. 
 
-   ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/blob/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal.PNG)<br>
+   ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/blob/master/Labs/Exercise%201%20Review%20Azure%20Sentinel%20Data%20Connectors/screenshots/portal1.PNG)<br>

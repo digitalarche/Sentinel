@@ -9,3 +9,38 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
 )<br><br>
+3.	Enter the account information:
+Username: **AdminXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)
+Password: **Ask the trainer**
+4.	This brings you to the Azure Home. In the box at the top, search for **Sentinel**.
+5.	In the results, click on **Azure Sentinel (preview)**
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/portal2.PNG
+)<br><br>
+6.	Click **briandel**, which is the name of the Sentinel Workspace.
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/workspace.PNG
+)<br><br>
+
+7.	Take a moment to examine the Sentinel **Overview** page. This page gives you a bird’s eye view of your estate’s data.<br>
+
+**Task 2:** Navigate the Overview Page and Understand Basic Kusto Queries 
+
+1.	Look closely at the pane entitled **Events and alerts over time**. This pane provides a bar graph representing alerts, Windows Firewall Events, Security Events, Performance data, and other data that has been recently gathered.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/events.PNG
+
+2.	Click on **WindowsFirewall** off to the right.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/FW.PNG
+
+3.	This opens up the **Logs** window and also demonstrates a critical point to understand. Azure Log Analytics (and the Kusto Query Language) forms a large portion of the platform upon which Azure Sentinel has been built.
+
+4.	Once the query (“WindowsFirewall”) finishes, examine the data.
+5.	Click one of the chevrons on the left to inspect a data element.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/FW_evetns.PNG
+
+6.	In keeping with this simple query, this piece of data tells a simple story. In the example here, the machine DC04.ad.briandel.ca sent (through the Firewall) a UDP packet to 10.0.0.4 over Port 59,121. In itself, it is not terribly interesting. But in aggregate or as part of an investigation, Kusto queries like this can provide critical data as we shall see.
+7.	Return to the Sentinel Overview page by clicking **Azure Sentinel – Overview** at the top.
+8.	Click one of the **Security Event** areas of one of the bars – it appears in light green.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/bar.PNG

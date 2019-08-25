@@ -20,7 +20,7 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 2.	In the window that opens, click Use another account. 
 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/lab01/screenshots/portal1.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
 )<br><br>
 
 3.	Enter the account information:
@@ -30,27 +30,28 @@ Password: **XXX**
 4.	This brings you to the Azure Home. In the box at the top, search for **Sentinel**.
 5.	In the results, click on **Azure Sentinel (preview)**.
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/lab01/screenshots/portal2.PNG
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/portal2.PNG
 )<br><br>
 
 6.	Click **briandel**, which is the name of the Sentinel Workspace.
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/lab01/screenshots/workspace.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/workspace.PNG
 )<br><br>
 
 7.	In the Navigation bar, select Data Connectors
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/lab01/screenshots/connectors.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/connectors.PNG
 )<br><br>
 
 8.	Locate the data connectors **Azure Active Directory** and **Security Events** and confirm that the Last log received time is within the last 30 minutes.
 9.	Click the **Azure Active Directory** connector and Click **Open connector page**
 10.	Confirm the status of the connector as **Connected**
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/lab01/screenshots/AAD.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/AAD.PNG
 )<br><br>
 
 11.	Confirm that there has been recent data received
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/lab01/screenshots/data_ingested.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/data_ingested.PNG
 )<br><br>

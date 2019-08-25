@@ -34,7 +34,7 @@ Password: **Ask the trainer**
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/portal2.PNG
 )<br><br>
 
-6.	Click briandel, which is the name of the Sentinel Workspace.
+6.	Click **briandel**, which is the name of the Sentinel Workspace.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/workspace.PNG
 )<br><br>
@@ -95,3 +95,31 @@ o	Host -> ImpactedGroup (Click Add)
 4.	Click on your case and Click the **Investigate** button
 5.	Within the Investigation window hover over the IP Address node and select **More -> Most prevalent accounts associated with this IP** to bring in additional data related to that IP<br>
 
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest01.PNG
+)<br><br>
+
+6.	Then, hover once again over the IP address and click **Related alerts** to see other Sentinel alerts based on the same IP Address to help identify other problems related to this bad logon<br>
+7.	Navigate back to Azure Sentinel -> Cases and locate your case Admin**XX** – Admin Group Change
+8.	Click on your case and Click the **Investigate** button
+9.	Within the investigation window you can see the User that was added to the group, and the Group that they were added to.
+10.	Hover over the User account **victim4** and click **Related alerts** to see additional alerts related to this Admin group change involving this account.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest02.PNG
+)<br><br>
+
+## Task 5: Create a playbook to respond to your case
+In this playbook we will be adding a user into a group based on a case.  This group is already linked to a conditional access policy which will block user logons to all cloud applications.
+
+1.	Within Azure Sentinel, Navigate to **Playbooks**
+2.	Click **Add Playbook**
+3.	In the Name field type standard**XX**-Block-With-Conditional-Access-Policy (where “XX” is the number you have been assigned)
+4.	Under Resource Group, Select **Use existing** and choose **OI-Default-East-US**
+5.	Click **Create**
+6.	In the Logic Apps Designer, Click **Blank Logic App**
+7.	In the text box **Search connectors and triggers** type **Sentinel** and click on the icon for **Azure Sentinel**.
+8.	Select **When a response to an Azure Sentinel alert is triggered**
+9.	Click **New Step**
+10.	Search for **Sentinel** and click on the **Azure Sentinel** icon and click **Get Accounts (preview)**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest02.PNG
+)<br><br>

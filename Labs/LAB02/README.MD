@@ -41,7 +41,7 @@ Password: **Ask the trainer**
 
 7.	Within the navigation bar, click Analytics
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/analytics.png
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/analytics.png
 )<br><br>
 
 Task 2: Create Analytics Rule for Failed Logon

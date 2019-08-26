@@ -163,3 +163,6 @@ Password: **Ask the trainer**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/myapp.PNG
 )<br><br>
+
+### Continue with the next lab
+LAB 03 - Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities Visually, click <a href="https://github.com/Yaniv-Shasha/Sentinel/tree/master/Labs/LAB03" target="_blank">here</a>

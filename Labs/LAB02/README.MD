@@ -53,11 +53,11 @@ Task 2: Create Analytics Rule for Failed Logon
 1.	Click **Add**<br>
 In the Name box type standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)<br>
 2.	Select Alert Severity **Medium**
-3.	In **Set Alert Query** copy the following query (substitute “XX” with your assigned number)
+3.	In **Set Alert Query** copy the following query **(substitute “XX” with your assigned number)**
 ```powershell
 SigninLogs
 | where Status.errorCode == 50126 // Invalid Username or password
-| where UserPrincipalName contains "standardXX" 
+| where UserPrincipalName contains "standardXX"
 | project TimeGenerated, Status.failureReason, UserPrincipalName, Status.errorCode, UserId, IPAddress 
 | sort by TimeGenerated desc
 ```
@@ -105,7 +105,7 @@ SecurityEvent
 )<br><br>
 
 6.	Then, hover once again over the IP address and click **Related alerts** to see other Sentinel alerts based on the same IP Address to help identify other problems related to this bad logon<br>
-7.	Navigate back to Azure Sentinel -> Cases and locate your case Admin**XX** – Admin Group Change
+7.	Navigate back to Azure Sentinel -> Incidents and locate your case Admin**XX** – Admin Group Change
 8.	Click on your case and Click the **Investigate** button
 9.	Within the investigation window you can see the User that was added to the group, and the Group that they were added to.
 10.	Hover over the User account **victim4** and click **Related alerts** to see additional alerts related to this Admin group change involving this account.
@@ -143,6 +143,10 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/accountAAD.PNG
 )<br><br>
 16.	Click **Save**
+
+* This is how it should look 
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/LA01.PNG
 
 ## Task 6: Use your new playbook to respond to a Incidents
 1.	Navigate back to **Sentinel -> Incidents** in the Azure Portal

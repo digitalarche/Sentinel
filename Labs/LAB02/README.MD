@@ -171,8 +171,6 @@ Username: **standardXX@sentinellab.xyz** (where “XX” is the number you have 
 Password: **Ask the trainer**
 10.	You will now see that access to the my apps portal has been blocked due to conditional access
 
-10.	You will now see that access to the my apps portal has been blocked due to conditional access
-
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/myapp.PNG
 )<br><br>
 

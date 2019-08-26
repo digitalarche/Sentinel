@@ -159,4 +159,4 @@ In this task, you will learn to proactively investigate using Sentinel Dashboard
 20.	This returns us to the Azure Sentinel homepage.
 
 ### Continue with the next lab
-LAB 03 - Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities with KQL Queries , click <a href="https://github.com/Yaniv-Shasha/Sentinel/tree/master/Labs/LAB04" target="_blank">here</a>
+LAB 04 - Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities with KQL Queries , click <a href="https://github.com/Yaniv-Shasha/Sentinel/tree/master/Labs/LAB04" target="_blank">here</a>

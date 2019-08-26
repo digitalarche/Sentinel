@@ -63,6 +63,7 @@ SigninLogs
 ```
 
 4.	Under Entity Mapping, map the following entities<br>
+
 * Account -> UserId (Click **Add**)
 * Host -> UserprincipalName (Click **Add**)
 * IP address -> IPAddress (Click **Add**)
@@ -86,18 +87,18 @@ SecurityEvent
 | project ChangeType, ImpactedGroup=TargetUserName, ImpactedAccount=MemberName, ChangeMaker=Account, DC=Computer
 ```
 
-4.	Under Entity Mapping, map the following entities
-o	Account -> ImpactedAccount (Click Add)
-o	Host -> ImpactedGroup (Click Add)
+4.	Under Entity Mapping, map the following entities<br>
+ * Account -> ImpactedAccount (Click Add)
+* Host -> ImpactedGroup (Click Add)
 5.	Set the Alert Trigger Operator to **Number of results greater than** and the threshold to 0
 6.	Set the Alert **scheduling Frequency** to 5 minutes and Period to 1 hour
 7.	Set **Alert suppression** to On and Suppress alerts for 1 hour
 
 ## Task 4: Review your Incidents
 1.	Open a new browser tab and Navigate to http://aka.ms/sentinel-investigation to activate the Sentinel Investigation Preview<br>
-2.	Navigate back to Azure Sentinel -> Cases
-3.	Locate your case standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)
-4.	Click on your case and Click the **Investigate** button
+2.	Navigate back to Azure Sentinel -> Incidents
+3.	Locate your Incidents that mutch the first rule that you created **standardXX – Failed Logon** (where “XX” is the number you have been assigned at the start of class)
+4.	Click on your Incidents and Click the **Investigate** button
 5.	Within the Investigation window hover over the IP Address node and select **More -> Most prevalent accounts associated with this IP** to bring in additional data related to that IP<br>
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest01.PNG

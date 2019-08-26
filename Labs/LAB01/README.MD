@@ -39,7 +39,7 @@ Password: **Ask the trainer**
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/workspace.PNG
 )<br><br>
 
-7.	In the Navigation bar, select Data Connectors
+7.	In the Navigation bar, select **Data Connectors**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/connectors.PNG
 )<br><br>

@@ -14,7 +14,7 @@ Password: **xxxxxxxx**
 
 # Exercise 1: Review Azure Sentinel Data Connectors
 In this exercise you will be reviewing the data connectors of Azure Sentinel to confirm that data is already being collected in the Sentinel Workspace.  Data connectors are critical to a setup of Azure Sentinel so that data can flow into the workspace.  To save time, these data connectors have been configured in advance.<br>
-**Task 1: Log on to Azure and Navigate to Sentinel**
+**Task 1: Log on to Azure and Navigate to Sentinel**<br>
 In this task, you will log into the Azure portal and navigate to Sentinel.
 1.	In a browser, navigate to https://portal.azure.com.
 2.	In the window that opens, click Use another account. 
@@ -25,7 +25,7 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 
 3.	Enter the account information:
 Username: **AdminXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)<br>
-Password: **XXX**
+Password: **Ask the trainer**
 
 4.	This brings you to the Azure Home. In the box at the top, search for **Sentinel**.
 5.	In the results, click on **Azure Sentinel (preview)**.

@@ -9,9 +9,10 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
 )<br><br>
-3.	Enter the account information:
-Username: **AdminXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)
-Password: **Ask the trainer**
+3.	Enter the account information:<br>
+* Username: **AdminXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)
+* Password: **Ask the trainer**<br>
+
 4.	This brings you to the Azure Home. In the box at the top, search for **Sentinel**.
 5.	In the results, click on **Azure Sentinel (preview)**
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/portal2.PNG

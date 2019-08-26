@@ -147,6 +147,7 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 * This is how it should look 
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/LA01.PNG
+)<br><br>
 
 ## Task 6: Use your new playbook to respond to a Incidents
 1.	Navigate back to **Sentinel -> Incidents** in the Azure Portal
@@ -155,6 +156,7 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 4.	Under the Incidents, click **View playbooks**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/viewplay.PNG
+)<br><br>
 
 5.	From the list of Playbooks locate **standardXX-Block-With-Conditional-Access-Policy** and click **Run**
 6.	Close all browser windows and open a new browser

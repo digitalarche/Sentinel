@@ -23,7 +23,8 @@ As in Task 1, we will be proactively hunting for Indicators of Attack in Sentine
 
 **Task 2. Run Several Single Hunting Queries and Examine the Output in Detail**<br>
 
-In this Task, we will run several single queries to hunt for indicators of compromise.
+In this Task, we will run several single queries to hunt for indicators of compromise.<br>
+
 **Step 1:** Run the New processes observed Query and Examine the Output<br>
 1.	Click on the query New processes observed in the last 24 hours.
 2.	This brings up information about this Hunting query on the right side of the screen.

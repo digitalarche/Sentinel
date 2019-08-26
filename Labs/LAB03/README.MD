@@ -52,16 +52,16 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 
 9.	This query is slightly more complex and will look something like this (the date and time fields will be different):
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/secevents.PNG
-)<br><br>
-
-10.	This query is asking for a **SecurityEvent** (from a Windows security log) during a specified date and time.
-11.	Click on one of the chevrons, preferably for an **AccountType** of **User** and not a built-in account like NT AUTHORITY.
-
 ```powershell
 union SecurityEvent
 | where TimeGenerated >= datetime(2019-08-25T16:19:04.063Z) and TimeGenerated < datetime(2019-08-25T16:19:04.063Z) + 1h
 ```
+
+10.	This query is asking for a **SecurityEvent** (from a Windows security log) during a specified date and time.
+11.	Click on one of the chevrons, preferably for an **AccountType** of **User** and not a built-in account like NT AUTHORITY.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/Atype.PNG
+)<br><br>
 
 In this example, the administrator account has failed to log on. This could be very telling as an early indicator of attack. Why is someone logging on (and failing) using the administrator account?<br>
 12.	Click *Azure Sentinel – Overview** to return to the Sentinel Overview page.

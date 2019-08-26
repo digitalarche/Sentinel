@@ -23,7 +23,7 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 
 7.	Take a moment to examine the Sentinel **Overview** page. This page gives you a bird’s eye view of your estate’s data.<br>
 
-**Task 2:** Navigate the Overview Page and Understand Basic Kusto Queries 
+**Task 2:* Navigate the Overview Page and Understand Basic Kusto Queries**<br>
 
 1.	Look closely at the pane entitled **Events and alerts over time**. This pane provides a bar graph representing alerts, Windows Firewall Events, Security Events, Performance data, and other data that has been recently gathered.
 
@@ -45,7 +45,7 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 
 6.	In keeping with this simple query, this piece of data tells a simple story. In the example here, the machine DC04.ad.briandel.ca sent (through the Firewall) a UDP packet to 10.0.0.4 over Port 59,121. In itself, it is not terribly interesting. But in aggregate or as part of an investigation, Kusto queries like this can provide critical data as we shall see.
 7.	Return to the Sentinel Overview page by clicking **Azure Sentinel – Overview** at the top.
-8.	Click one of the **Security Event** areas of one of the bars – it appears in light green.
+8.	Click one of the **Security Event** areas of one of the bars – it appears in light green(The Bar color may change).
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/bar.PNG
 )<br><br>
@@ -58,8 +58,10 @@ In this task, you will log into the Azure portal and navigate to Sentinel.
 10.	This query is asking for a **SecurityEvent** (from a Windows security log) during a specified date and time.
 11.	Click on one of the chevrons, preferably for an **AccountType** of **User** and not a built-in account like NT AUTHORITY.
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/Atype.PNG
-)<br><br>
+```powershell
+union SecurityEvent
+| where TimeGenerated >= datetime(2019-08-25T16:19:04.063Z) and TimeGenerated < datetime(2019-08-25T16:19:04.063Z) + 1h
+```
 
 In this example, the administrator account has failed to log on. This could be very telling as an early indicator of attack. Why is someone logging on (and failing) using the administrator account?<br>
 12.	Click *Azure Sentinel – Overview** to return to the Sentinel Overview page.

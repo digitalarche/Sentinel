@@ -64,10 +64,13 @@ union SecurityEvent
 )<br><br>
 
 In this example, the administrator account has failed to log on. This could be very telling as an early indicator of attack. Why is someone logging on (and failing) using the administrator account?<br>
+
 12.	Click *Azure Sentinel – Overview** to return to the Sentinel Overview page.
 
-**Task 3**: Utilize Dashboards to Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities<br>
+**Task 3: Utilize Dashboards to Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities**<br>
+
 **Step 1**: Learn to navigate the Dashboards frame<br>
+
 In this task, you will learn to proactively investigate using Sentinel Dashboards. Sentinel Dashboards provide visualized data from your connected data sources to help render them proactively actionable.
 1.	From the Sentinel Overview page, click on Dashboards.
 
@@ -76,7 +79,7 @@ In this task, you will learn to proactively investigate using Sentinel Dashboard
 
 2.	On the next blade that appears, click All.
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash02.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/Dash02.png
 )<br><br>
 
 3.	Taka a moment to browse the list of built-in Dashboards such as **Azure Activity, Azure AD Sign-in logs, Office 365**, and third-party Dashboards for products from vendors like Symantec and Palo alto. It is important to understand that **Dashboards** are typically used with Data connectors. In fact, when you add a **Data connector**, you typically receive a **Recommended dashboard**, as in this example:

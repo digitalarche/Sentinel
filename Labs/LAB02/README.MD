@@ -18,10 +18,12 @@ Password: **Ask the trainer**
 4.	Confirm you have access to the My Apps portal.
 5.	Close all instances of your browser and Navigate back to https://myapps.microsoft.com
 6.	This time, when logging on as **standardxx@sentinellab.xyz** type in an **incorrect password**
-7.	Repeat this invalid logon attempt 5 times
+7.	Repeat this invalid logon attempt **5 times**
 
-**Task 2**: Log on to Azure and Navigate to Sentinel
+**Task 2**: Log on to Azure and Navigate to Sentinel<br>
 In this task you will log into the Azure portal and navigate to Sentinel.
+
+
 1.	In a browser, navigate to https://portal.azure.com.
 2.	In the window that opens, click Use another account. 
 
@@ -42,7 +44,7 @@ Password: **Ask the trainer**
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/workspace.PNG
 )<br><br>
 
-7.	Within the navigation bar, click Analytics
+7.	Within the navigation bar, click **Analytics**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/analytics.png
 )<br><br>
@@ -60,11 +62,11 @@ SigninLogs
 | sort by TimeGenerated desc
 ```
 
-4.	Under Entity Mapping, map the following entities
-o	Account -> UserId (Click **Add**)
-o	Host -> UserprincipalName (Click **Add**)
-o	IP address -> IPAddress (Click **Add**)
-5.	Set the Alert Trigger Operator to **Number of results greater than** and the threshold to 0
+4.	Under Entity Mapping, map the following entities<br>
+* Account -> UserId (Click **Add**)
+* Host -> UserprincipalName (Click **Add**)
+* IP address -> IPAddress (Click **Add**)
+5.	Set the Alert Trigger Operator to **Number of results greater than** and the threshold to 0.
 6.	Set the Alert **scheduling Frequency** to 5 minutes and Period to 30 minutes
 7.	Set Alert suppression to On and Suppress alerts for 30 minutes
 8.	Click **Create**.

@@ -1,5 +1,5 @@
-## Exercise 2: Setup Alerts (Analytics) and Respond to Cases in Azure Sentinel
-In this section we will configure Alerts in Azure Sentinel to generate Cases for our security team.  During the review of these cases we will build a Runbook to simplify the handling of these alerts.<br>
+## Exercise 2: Setup Alerts (Analytics) and Respond to Incident in Azure Sentinel
+In this section we will configure Alerts in Azure Sentinel to generate Incidents for our security team.  During the review of these Incident we will build a Playbook to simplify the handling of these alerts.<br>
 
 **Task 1**: Log on to the My Apps portal as a **Standard User**<br>
 
@@ -105,8 +105,8 @@ SecurityEvent
 )<br><br>
 
 6.	Then, hover once again over the IP address and click **Related alerts** to see other Sentinel alerts based on the same IP Address to help identify other problems related to this bad logon<br>
-7.	Navigate back to Azure Sentinel -> Incidents and locate your case Admin**XX** – Admin Group Change
-8.	Click on your case and Click the **Investigate** button
+7.	Navigate back to Azure Sentinel -> Incidents and locate your Incident Admin**XX** – Admin Group Change
+8.	Click on your Incident and Click the **Investigate** button
 9.	Within the investigation window you can see the User that was added to the group, and the Group that they were added to.
 10.	Hover over the User account **victim4** and click **Related alerts** to see additional alerts related to this Admin group change involving this account.
 

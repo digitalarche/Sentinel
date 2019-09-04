@@ -58,4 +58,4 @@ Password: **Ask the trainer**
 
 
 ### Continue with the next lab
-LAB 03 -Setup Alerts (Analytics) and Respond to Cases in Azure Sentinel, click <a href="https://github.com/Yaniv-Shasha/Sentinel/tree/master/Labs/LAB02" target="_blank">here</a>
+LAB 02 -Setup Alerts (Analytics) and Respond to Cases in Azure Sentinel, click <a href="https://github.com/Yaniv-Shasha/Sentinel/tree/master/Labs/LAB02" target="_blank">here</a>

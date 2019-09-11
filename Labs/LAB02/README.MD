@@ -98,7 +98,7 @@ SecurityEvent
 ## Task 4: Review your Incidents
 1.	Open a new browser tab and Navigate to http://aka.ms/sentinel-investigation to activate the Sentinel Investigation Preview<br>
 2.	Navigate back to Azure Sentinel -> Incidents
-3.	Locate your Incidents that mutch the first rule that you created **standardXX – Failed Logon** (where “XX” is the number you have been assigned at the start of class)
+3.	Locate your Incidents that generated from the first rule that you created **standardXX – Failed Logon** (where “XX” is the number you have been assigned at the start of class)
 4.	Click on your Incidents and Click the **Investigate** button
 5.	Within the Investigation window hover over the IP Address node and select **More -> Most prevalent accounts associated with this IP** to bring in additional data related to that IP<br>
 

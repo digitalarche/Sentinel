@@ -107,14 +107,14 @@ SecurityEvent
 **Task 4: Craft and Execute a Unique Hunting Query to Investigate a Distinct Security Concern**<br>
 
 In this Task, you will pick up where the Insecure Protocols dashboard left off. You will craft a query to hunt for the use of Legacy Protocols against Azure AD. One source of legacy protocols is often, but not exclusively, the use of mail browsers accessing Office 365/Exchange Online. In reality, you could make this a dashboard, or an extension of the Insecure Protocols dashboard. But in the interest of time, here you will craft this activity as a Hunting Query.<br>
-1.	From within the Hunting section of the portal, Click on the + **New Query** button
+1.	From within the Hunting section of the portal, Click on the + **New Query** button<br>
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt15.PNG
 )<br><br>
 
 
-2.	On the Create custom query page, Fill in the following information
-**Name:** Azure AD Legacy Protocol – Admin[Number]
+2.	On the Create custom query page, Fill in the following information<br>
+**Name:** Azure AD Legacy Protocol – Admin[Number]<br>
 [Where Admin1 is the name of your logon. For Example, if my logon is Admin 43, then the Name field would read **Azure AD Legacy Protocol – Admin43.**]<br>
 **Description:** Hunt for Legacy Protocols across the estate hitting Azure AD.<br>
 **Custom query:**

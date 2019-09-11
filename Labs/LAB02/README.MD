@@ -49,7 +49,7 @@ Password: **Ask the trainer**
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/analytics.png
 )<br><br>
 
-Task 2: Create Analytics Rule for Failed Logon
+## Task 2: Create Analytics Rule for Failed Logon
 1.	Click **Add**<br>
 In the Name box type standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)<br>
 2.	Select Alert Severity **Medium**
@@ -73,7 +73,8 @@ SigninLogs
 8.	Click **Create**.
 
 ## Task 3: Create Analytics Rule for Admin Group Change
-1.	We will Create new Alert -on the analytics main page click **Add**<br>
+1.	We will Create new Alert <br>
+-on the analytics main page click **Add**<br>
 In the Name box type Admin**XX** – Admin Group Change (where “XX” is the number you have been assigned at the start of class)
 2.	Select Alert Severity **Medium**
 3.	In **Set Alert Query** copy the following query

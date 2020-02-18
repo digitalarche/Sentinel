@@ -12,9 +12,8 @@
         }
     },
     "variables": {
-
-	    "AzureSentinelConnectionName": "[concat('AzureSentinelConnectionName-', parameters('PlaybookName'))]",
-        "office365ConnectionName": "[concat('o365-', parameters('PlaybookName'))]"
+	    "AzureSentinelConnectionName": "[concat('azuresentinel-', parameters('PlaybookName'))]",
+        "office365ConnectionName": "[concat('office365-', parameters('PlaybookName'))]"
 
     },
     "resources": [
@@ -275,12 +274,12 @@
                 "parameters": {
                     "$connections": {
                         "value": {
-                           "azureloganalyticsdatacollector": {
+                           "azuresentinel": {
                                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('AzureSentinelConnectionName'))]",
                                 "connectionName": "[variables('AzureSentinelConnectionName')]",
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuresentinel')]"
                             },
-                            "azuresentinel": {
+                            "office365": {
                                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('office365ConnectionName'))]",
                                 "connectionName": "[variables('office365ConnectionName')]",
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/office365')]"

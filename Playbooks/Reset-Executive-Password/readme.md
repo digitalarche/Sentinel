@@ -1,7 +1,7 @@
 # Reset-Executive-Password
 author: Yaniv Shasha
 
-This playbook will disable the user in Azure Active Directoy and add a comment to the incident
+This playbook will send an email to L2 DL and ask for a confirmation to the reset AAD password for a Phished user
 
 <a href="https://azuredeploy.net/?repository=https://github.com/Yaniv-Shasha/Sentinel/tree/master/Playbooks/Reset-Executive-Password" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>

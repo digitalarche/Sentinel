@@ -12,7 +12,6 @@
         }
     },
     "variables": {
-
         "MDATPConnectionName": "[concat('wdatp-', parameters('PlaybookName'))]"
     },
     "resources": [

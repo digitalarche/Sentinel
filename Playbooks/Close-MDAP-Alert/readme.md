@@ -1,7 +1,7 @@
 # Close-MDATPAlert
 author: Yaniv Shasha
 
-This playbook will send an email to L2 DL and ask for a confirmation to the reset AAD password for a Phished user.
+This playbook will close Query closed Sentinel Incidents and will dismiss the corresponding MDATP Alert
 NOTE: You need to supply this parameters: Sentinel Subscription \ RG \ Workspace
 N
 

@@ -1,7 +1,7 @@
 # Close-MDATPAlert
 author: Yaniv Shasha
 
-This playbook will close Query closed Sentinel Incidents and will dismiss the corresponding MDATP Alert
+This playbook will query all the MDATP closed Sentinel incidents and will dismiss the corresponding MDATP Alert
 NOTE: You need to supply this parameters: Sentinel Subscription \ RG \ Workspace
 N
 

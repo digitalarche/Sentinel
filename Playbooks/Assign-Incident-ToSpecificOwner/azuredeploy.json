@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
 	"metadata":{
-        "comments": "This playbook will assign Incident based on its title, curentlly its implement to looks for ASC\MCAS\MDATP strings",
+        "comments": "This playbook will assign Incident based on its title, curentlly its implement to looks for ASC,MCAS,MDATP strings",
         "author": "Yaniv Shasha"
     },
     "parameters": {
@@ -11,10 +11,8 @@
             "type": "String"
         }
     },
-    "variables": {
  "variables": {
         "AzureSentinelConnectionName": "[concat('azuresentinel-', parameters('PlaybookName'))]"
-    },	
 	},
     "resources": [
         {

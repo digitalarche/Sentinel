@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
 	"metadata":{
-        "comments": "This playbook will assign Incident based on its title, curentlly its implement to looks for ASC,MCAS,MDATP strings",
+        "comments": "This playbook will assign Incident based on its title, curentlly its implement to looks for ASC\MCAS\MDATP strings",
         "author": "Yaniv Shasha"
     },
     "parameters": {
@@ -12,9 +12,9 @@
         }
     },
     "variables": {
- 
+ "variables": {
         "AzureSentinelConnectionName": "[concat('azuresentinel-', parameters('PlaybookName'))]"
-    
+    },	
 	},
     "resources": [
         {
@@ -51,7 +51,7 @@
                             "type": "Object"
                         }
                     },
-                    "triggers": {
+                   "triggers": {
                         "When_a_response_to_an_Azure_Sentinel_alert_is_triggered": {
                             "type": "ApiConnectionWebhook",
                             "inputs": {
@@ -85,6 +85,23 @@
                                 ]
                             }
                         },
+                        "AlertTitleTag": {
+                            "runAfter": {
+                                "Alert_-_Get_incident": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "AlertTitleTag",
+                                        "type": "string",
+                                        "value": "@{first(split(body('Alert_-_Get_incident')?['properties']?['Title'], ' |' ))}"
+                                    }
+                                ]
+                            }
+                        },
                         "Alert_-_Get_incident": {
                             "runAfter": {},
                             "type": "ApiConnection",
@@ -97,135 +114,6 @@
                                 "method": "get",
                                 "path": "/Cases/@{encodeURIComponent(triggerBody()?['SystemAlertId'])}/@{encodeURIComponent(triggerBody()?['WorkspaceSubscriptionId'])}/@{encodeURIComponent(triggerBody()?['WorkspaceId'])}/@{encodeURIComponent(triggerBody()?['WorkspaceResourceGroup'])}"
                             }
-                        },
-                        "Check_if_ASC": {
-                            "actions": {
-                                "Assign_to_ASC_owner": {
-                                    "runAfter": {},
-                                    "type": "Http",
-                                    "inputs": {
-                                        "authentication": {
-                                            "type": "ManagedServiceIdentity"
-                                        },
-                                        "body": {
-                                            "etag": "@{body('Parse_JSON')?['etag']}",
-                                            "properties": {
-                                                "owner": {
-                                                    "assignedTo": "@{variables('Asc Owner Email')}"
-                                                },
-                                                "severity": "@{body('Parse_JSON')?['properties']?['severity']}",
-                                                "status": "@{body('Parse_JSON')?['properties']?['Status']}",
-                                                "title": "@{body('Parse_JSON')?['properties']?['title']}"
-                                            }
-                                        },
-                                        "headers": {
-                                            "Content-Type": "application/json"
-                                        },
-                                        "method": "PUT",
-                                        "uri": "https://management.azure.com/subscriptions/@{triggerBody()?['WorkspaceSubscriptionId']}/resourceGroups/@{triggerBody()?['WorkspaceResourceGroup']}/providers/Microsoft.OperationalInsights/workspaces/@{variables('SentinelWorkspaceName')}/providers/Microsoft.SecurityInsights/incidents/@{body('Parse_JSON')?['name']}?api-version=2019-01-01-preview"
-                                    }
-                                }
-                            },
-                            "runAfter": {
-                                "Parse_JSON": [
-                                    "Succeeded"
-                                ]
-                            },
-                            "else": {
-                                "actions": {
-                                    "Check_if_MCAS": {
-                                        "actions": {
-                                            "Assign_To_MCAS_owner_Email": {
-                                                "runAfter": {},
-                                                "type": "Http",
-                                                "inputs": {
-                                                    "authentication": {
-                                                        "type": "ManagedServiceIdentity"
-                                                    },
-                                                    "body": {
-                                                        "etag": "@{body('Parse_JSON')?['etag']}",
-                                                        "properties": {
-                                                            "owner": {
-                                                                "assignedTo": "@{variables('MCAS Owner Email')}"
-                                                            },
-                                                            "severity": "@{body('Parse_JSON')?['properties']?['severity']}",
-                                                            "status": "@{body('Parse_JSON')?['properties']?['Status']}",
-                                                            "title": "@{body('Parse_JSON')?['properties']?['title']}"
-                                                        }
-                                                    },
-                                                    "method": "PUT",
-                                                    "uri": "https://management.azure.com/subscriptions/@{triggerBody()?['WorkspaceSubscriptionId']}/resourceGroups/@{triggerBody()?['WorkspaceResourceGroup']}/providers/Microsoft.OperationalInsights/workspaces/@{variables('SentinelWorkspaceName')}/providers/Microsoft.SecurityInsights/incidents/@{body('Parse_JSON')?['name']}?api-version=2019-01-01-preview"
-                                                }
-                                            }
-                                        },
-                                        "runAfter": {},
-                                        "else": {
-                                            "actions": {
-                                                "Check_if_MDATP": {
-                                                    "actions": {
-                                                        "Assign_to_MDATP_owner_Email": {
-                                                            "runAfter": {},
-                                                            "type": "Http",
-                                                            "inputs": {
-                                                                "authentication": {
-                                                                    "type": "ManagedServiceIdentity"
-                                                                },
-                                                                "body": {
-                                                                    "etag": "@{body('Parse_JSON')?['etag']}",
-                                                                    "properties": {
-                                                                        "owner": {
-                                                                            "assignedTo": "@{variables('MDATP Owner Email')}"
-                                                                        },
-                                                                        "severity": "@{body('Parse_JSON')?['properties']?['severity']}",
-                                                                        "status": "@{body('Parse_JSON')?['properties']?['Status']}",
-                                                                        "title": "@{body('Parse_JSON')?['properties']?['title']}"
-                                                                    }
-                                                                },
-                                                                "method": "PUT",
-                                                                "uri": "https://management.azure.com/subscriptions/@{triggerBody()?['WorkspaceSubscriptionId']}/resourceGroups/@{triggerBody()?['WorkspaceResourceGroup']}/providers/Microsoft.OperationalInsights/workspaces/@{variables('SentinelWorkspaceName')}/providers/Microsoft.SecurityInsights/incidents/@{body('Parse_JSON')?['name']}?api-version=2019-01-01-preview"
-                                                            }
-                                                        }
-                                                    },
-                                                    "runAfter": {},
-                                                    "expression": {
-                                                        "and": [
-                                                            {
-                                                                "contains": [
-                                                                    "@body('Alert_-_Get_incident')?['properties']?['Title']",
-                                                                    "MDATP"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    },
-                                                    "type": "If"
-                                                }
-                                            }
-                                        },
-                                        "expression": {
-                                            "and": [
-                                                {
-                                                    "contains": [
-                                                        "@body('Alert_-_Get_incident')?['properties']?['Title']",
-                                                        "MCAS"
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        "type": "If"
-                                    }
-                                }
-                            },
-                            "expression": {
-                                "and": [
-                                    {
-                                        "contains": [
-                                            "@triggerBody()?['AlertDisplayName']",
-                                            "ASC"
-                                        ]
-                                    }
-                                ]
-                            },
-                            "type": "If"
                         },
                         "MCAS_Owner_Email": {
                             "runAfter": {
@@ -404,9 +292,104 @@
                                 }
                             }
                         },
+                        "Route_Incident_Per_Alert_Title_": {
+                            "runAfter": {
+                                "Parse_JSON": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "cases": {
+                                "Check_IF_ASC": {
+                                    "case": "ASC",
+                                    "actions": {
+                                        "Assign_Incident_to_ASC_owner": {
+                                            "runAfter": {},
+                                            "type": "Http",
+                                            "inputs": {
+                                                "authentication": {
+                                                    "type": "ManagedServiceIdentity"
+                                                },
+                                                "body": {
+                                                    "etag": "@{body('Parse_JSON')?['etag']}",
+                                                    "properties": {
+                                                        "owner": {
+                                                            "assignedTo": "@{variables('Asc Owner Email')}"
+                                                        },
+                                                        "severity": "@{body('Parse_JSON')?['properties']?['severity']}",
+                                                        "status": "@{body('Parse_JSON')?['properties']?['Status']}",
+                                                        "title": "@{body('Parse_JSON')?['properties']?['title']}"
+                                                    }
+                                                },
+                                                "method": "PUT",
+                                                "uri": "https://management.azure.com/subscriptions/@{triggerBody()?['WorkspaceSubscriptionId']}/resourceGroups/@{triggerBody()?['WorkspaceResourceGroup']}/providers/Microsoft.OperationalInsights/workspaces/@{variables('SentinelWorkspaceName')}/providers/Microsoft.SecurityInsights/incidents/@{body('Parse_JSON')?['name']}?api-version=2019-01-01-preview"
+                                            }
+                                        }
+                                    }
+                                },
+                                "Check_IF_MCAS": {
+                                    "case": "MCAS",
+                                    "actions": {
+                                        "Assign_Incident_To_MCAS_owner": {
+                                            "runAfter": {},
+                                            "type": "Http",
+                                            "inputs": {
+                                                "authentication": {
+                                                    "type": "ManagedServiceIdentity"
+                                                },
+                                                "body": {
+                                                    "etag": "@{body('Parse_JSON')?['etag']}",
+                                                    "properties": {
+                                                        "owner": {
+                                                            "assignedTo": "@{variables('MCAS Owner Email')}"
+                                                        },
+                                                        "severity": "@{body('Parse_JSON')?['properties']?['severity']}",
+                                                        "status": "@{body('Parse_JSON')?['properties']?['Status']}",
+                                                        "title": "@{body('Parse_JSON')?['properties']?['title']}"
+                                                    }
+                                                },
+                                                "method": "PUT",
+                                                "uri": "https://management.azure.com/subscriptions/@{triggerBody()?['WorkspaceSubscriptionId']}/resourceGroups/@{triggerBody()?['WorkspaceResourceGroup']}/providers/Microsoft.OperationalInsights/workspaces/@{variables('SentinelWorkspaceName')}/providers/Microsoft.SecurityInsights/incidents/@{body('Parse_JSON')?['name']}?api-version=2019-01-01-preview"
+                                            }
+                                        }
+                                    }
+                                },
+                                "Check_IF_MDATP": {
+                                    "case": "MDATP",
+                                    "actions": {
+                                        "Assign_Incident_to_MDATP_owner": {
+                                            "runAfter": {},
+                                            "type": "Http",
+                                            "inputs": {
+                                                "authentication": {
+                                                    "type": "ManagedServiceIdentity"
+                                                },
+                                                "body": {
+                                                    "etag": "@{body('Parse_JSON')?['etag']}",
+                                                    "properties": {
+                                                        "owner": {
+                                                            "assignedTo": "@{variables('MDATP Owner Email')}"
+                                                        },
+                                                        "severity": "@{body('Parse_JSON')?['properties']?['severity']}",
+                                                        "status": "@{body('Parse_JSON')?['properties']?['Status']}",
+                                                        "title": "@{body('Parse_JSON')?['properties']?['title']}"
+                                                    }
+                                                },
+                                                "method": "PUT",
+                                                "uri": "https://management.azure.com/subscriptions/@{triggerBody()?['WorkspaceSubscriptionId']}/resourceGroups/@{triggerBody()?['WorkspaceResourceGroup']}/providers/Microsoft.OperationalInsights/workspaces/@{variables('SentinelWorkspaceName')}/providers/Microsoft.SecurityInsights/incidents/@{body('Parse_JSON')?['name']}?api-version=2019-01-01-preview"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "default": {
+                                "actions": {}
+                            },
+                            "expression": "@variables('AlertTitleTag')",
+                            "type": "Switch"
+                        },
                         "SentinelWorkspaceName": {
                             "runAfter": {
-                                "Alert_-_Get_incident": [
+                                "AlertTitleTag": [
                                     "Succeeded"
                                 ]
                             },

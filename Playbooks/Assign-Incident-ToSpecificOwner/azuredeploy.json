@@ -12,9 +12,9 @@
         }
     },
     "variables": {
- "variables": {
+ 
         "AzureSentinelConnectionName": "[concat('azuresentinel-', parameters('PlaybookName'))]"
-    },	
+    
 	},
     "resources": [
         {
@@ -80,7 +80,7 @@
                                     {
                                         "name": "Asc Owner Email",
                                         "type": "string",
-                                        "value": "yanivsh@seccxpninja.onmicrosoft.com"
+                                        "value": ""
                                     }
                                 ]
                             }
@@ -239,7 +239,7 @@
                                     {
                                         "name": "MCAS Owner Email",
                                         "type": "string",
-                                        "value": "AlexW@seccxpninja.onmicrosoft.com"
+                                        "value": ""
                                     }
                                 ]
                             }
@@ -256,7 +256,7 @@
                                     {
                                         "name": "MDATP Owner Email",
                                         "type": "string",
-                                        "value": "adelevan@seccxpninja.onmicrosoft.com"
+                                        "value": ""
                                     }
                                 ]
                             }
@@ -416,7 +416,7 @@
                                     {
                                         "name": "SentinelWorkspaceName",
                                         "type": "string",
-                                        "value": "CyberSecurityDemo"
+                                        "value": ""
                                     }
                                 ]
                             }

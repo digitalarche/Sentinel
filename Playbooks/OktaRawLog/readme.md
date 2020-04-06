@@ -1,7 +1,7 @@
 # Reset-Executive-Password
 author: Yaniv Shasha
 
-This playbook will send an Raw events from Okta events API into sentinel workspace.
+This playbook will send Raw events from Okta events API into sentinel workspace.
 NOTE: You need to generate API token from Okta and add it to the logic app parameter APIKey.
 
 

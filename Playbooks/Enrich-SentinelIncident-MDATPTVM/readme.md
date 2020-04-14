@@ -9,9 +9,11 @@ Also it automatically add this information to the incident as comments and chang
 
 Prerequisite:
 
-This logic app use Oauth2 to authenticate against MDATP API.
+This logic app use Oauth2 to authenticate against MDATP API:
 https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/apis-intro 
-Please follow this documentation to create AAD app and give 
+
+Please follow this documentation to create AAD app and give the Permissions based on this article:
+
 https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/get-all-vulnerabilities#permissions
 
 <a href="https://azuredeploy.net/?repository=https://github.com/Yaniv-Shasha/Sentinel/tree/master/Playbooks/Isolate-MDATPMachine" target="_blank">

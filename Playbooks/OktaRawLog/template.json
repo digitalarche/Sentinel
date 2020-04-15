@@ -557,10 +557,10 @@
                                 "method": "post",
                                 "path": "/queryData",
                                 "queries": {
-                                    "resourcegroups": "SOC",
-                                    "resourcename": "CyberSecurityDemo",
-                                    "resourcetype": "Log Analytics Workspace",
-                                    "subscriptions": "44e4eff8-1fcb-4a22-a7d6-992ac7286382",
+                                    "resourcegroups": "",
+                                    "resourcename": "",
+                                    "resourcetype": "",
+                                    "subscriptions": "",
                                     "timerange": "Last 7 days"
                                 }
                             }

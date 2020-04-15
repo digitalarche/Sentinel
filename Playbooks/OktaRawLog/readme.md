@@ -1,4 +1,4 @@
-# Reset-Executive-Password
+# Send-Okta-RawLogs
 author: Yaniv Shasha
 
 This playbook will send Raw events from Okta events API into sentinel workspace.

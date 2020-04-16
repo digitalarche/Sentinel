@@ -92,7 +92,7 @@
                                                             "clientId": "",
                                                             "secret": "",
                                                             "tenant": "",
-                                                            "type": ""
+                                                            "type": "ActiveDirectoryOAuth"
                                                         },
                                                         "method": "DELETE",
                                                         "uri": "https://graph.microsoft.com/v1.0/users/@{outputs('Compose')}/messages/'@{items('For_each_2')?['id']}'"
@@ -147,7 +147,7 @@
                                     "clientId": "",
                                     "secret": "",
                                     "tenant": "",
-                                    "type": ""
+                                    "type": "ActiveDirectoryOAuth"
                                 },
                                 "method": "GET",
                                 "uri": "https://graph.microsoft.com/v1.0/users/@{outputs('Compose')}/messages?$search=\"@{variables('Search_String')}\""

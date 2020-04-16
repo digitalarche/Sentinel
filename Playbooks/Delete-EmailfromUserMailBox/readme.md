@@ -8,10 +8,10 @@ The playbook will extract the email title and the receivers user and check if th
 
 Authentication part:
 
-  "audience": "https://graph.microsoft.com",
-  "clientId": "<your AAD application client ID>",
-  "secret": "<your AAD app secret>",
-  "tenant": "<tenant_id>",
+  "audience": "https://graph.microsoft.com"
+  "clientId": "<your AAD application client ID>"
+  "secret": "<your AAD app secret>"
+  "tenant": "<tenant_id>"
   "type": "ActiveDirectoryOAuth"
 
 Give the AAD app the relevant permission as describe here https://docs.microsoft.com/en-us/graph/permissions-reference#mail-permissions

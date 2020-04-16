@@ -12,13 +12,13 @@
         }
     },
     "variables": {
-        "azureloganalyticsdatacollector": "[concat('azureloganalyticsdatacollector-', parameters('PlaybookName'))]"
+        "AzureLAConnectionName": "[concat('azureloganalyticsdatacollector-', parameters('PlaybookName'))]"
     },
     "resources": [
         {
             "type": "Microsoft.Web/connections",
             "apiVersion": "2016-06-01",
-            "name": "[variables('azureloganalyticsdatacollector')]",
+            "name": "[variables('AzureLAConnectionName')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "customParameterValues": {},
@@ -36,7 +36,7 @@
                 "LogicAppsCategory": "security"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Web/connections', variables('azureloganalyticsdatacollector'))]"
+                "[resourceId('Microsoft.Web/connections', variables('AzureLAConnectionName'))]"
             ],
             "properties": {
                 "state": "Enabled",
@@ -330,8 +330,8 @@
                     "$connections": {
                         "value": {
                             "azureloganalyticsdatacollector": {
-                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('azureloganalyticsdatacollector'))]",
-                                "connectionName": "[variables('azureloganalyticsdatacollector')]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('AzureLAConnectionName'))]",
+                                "connectionName": "[variables('AzureLAConnectionName')]",
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azureloganalyticsdatacollector')]"
                             }
                         }

@@ -161,7 +161,7 @@
                                     "Authorization": "[parameters('OktaAPIKey')]"
                                 },
                                 "method": "GET",
-                                           "uri": "[concat('http://', concat(parameters('OktaDomainName')),'/api/v1/events?startDate=@{first(body('Parse_JSON_2'))?['max_published_t']}]"
+                                           "uri": "[concat(parameters('OktaDomainName')),/api/v1/events?startDate=@{first(body(''Parse_JSON_2'')?[''max_published_t'']]"
                             }
                         },
                         "Initialize_variable": {

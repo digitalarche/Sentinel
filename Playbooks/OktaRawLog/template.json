@@ -9,13 +9,20 @@
         "PlaybookName": {
             "defaultValue": "OktaEvents-to-Sentinel",
             "type": "String"
+        },
+     "OktaDomainName": {
+            "defaultValue": "<Enter your Okta Domain >",
+            "type": "String"
+        },
+        "OktaAPIKey": {
+            "defaultValue": "<Enter API key string>",
+            "type": "String"
         }
+
     },
     "variables": {
-
  "azureloganalyticsdatacollector": "[concat('azureloganalyticsdatacollector-', parameters('PlaybookName'))]",
         "azuremonitorlogs_1": "[concat('azuremonitorlogs_1-', parameters('PlaybookName'))]"
-
     },
     "resources":[
         {
@@ -151,10 +158,10 @@
                             "inputs": {
                                 "headers": {
                                     "Accept": "application/json",
-                                    "Authorization": "SSWS @{variables('APIKey')}"
+                                    "Authorization": "[parameters('OktaAPIKey')]"
                                 },
                                 "method": "GET",
-                                "uri": "https://dev-541535-admin.okta.com/api/v1/events?startDate=@{first(body('Parse_JSON_2'))?['max_published_t']}"
+                                           "uri": "[concat('http://', concat(parameters('OktaDomainName')),'/api/v1/events?startDate=@{first(body('Parse_JSON_2'))?['max_published_t']}]"
                             }
                         },
                         "Initialize_variable": {

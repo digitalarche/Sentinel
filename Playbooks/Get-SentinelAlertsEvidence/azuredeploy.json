@@ -12,7 +12,7 @@
         }
     },
     "variables": {
-        "azuremonitorlogs": "[concat('azuresentinel-', parameters('PlaybookName'))]",
+        "azuremonitorlogs": "[concat('azuremonitorlogs-', parameters('PlaybookName'))]",
         "azuresentinel": "[concat('azuresentinel-', parameters('PlaybookName'))]",
         "eventhubs": "[concat('eventhubs-', parameters('PlaybookName'))]"
 

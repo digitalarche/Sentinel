@@ -1,6 +1,6 @@
 # Get-SentinelAlertsEvidence
 
-"This playbook will collect sentinel incident evidence (aka 'Events') and send them and the alerts to EventHub. 3rd party SIEM can connect to the above EventHub and save this data to farther analysis.
+This playbook will collect sentinel incident evidence (aka 'Events') and send them and the alerts to EventHub. 3rd party SIEM can connect to the above EventHub and save this data to farther analysis.
 Author": Yaniv Shasha
 
 

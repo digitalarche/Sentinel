@@ -14,7 +14,7 @@ Prerequisite for using this module https://github.com/wortell/AZSentinel#prerequ
 
 ### This script will not migrate Azure Sentinel analytics rules that is:
 
-- Not active 
-- From fusion type
-- From 1st party alert providers (ASC\AATP\NM\IDP\MDATP)
-- if in the new workspace that Log analytics table that the rule query is not exist
+- Not active.
+- From fusion type.
+- From 1st party alert providers (ASC\AATP\NM\IDP\MDATP).
+- If in the new workspace is missing the Log analytics table that the rule query.

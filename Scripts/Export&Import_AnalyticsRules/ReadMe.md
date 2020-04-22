@@ -8,12 +8,12 @@
 
 Prerequisite for using this module https://github.com/wortell/AZSentinel#prerequisites
 
-•	PowerShell Core
-•	Powershell AZ Module - tested with version 2.4.0
-•	PowerShell powershell-yaml Module - tested with version 0.4.0
+- PowerShell Core
+- Powershell AZ Module - tested with version 2.4.0
+- PowerShell powershell-yaml Module - tested with version 0.4.0
 
 ### This script will not migrate Azure Sentinel analytics rules that is:
 
-1. Not active 
-2. From fusion type
-3. from 1st party alert providers (ASC\AATP\NM\IDP\MDATP)
+- Not active 
+- From fusion type
+- From 1st party alert providers (ASC\AATP\NM\IDP\MDATP)

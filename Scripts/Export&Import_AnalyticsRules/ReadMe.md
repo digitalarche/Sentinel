@@ -20,4 +20,4 @@ Install-Module AzSentinel -Scope CurrentUser -Force
 - Not active.
 - From fusion type.
 - From 1st party alert providers (ASC\AATP\MCAS\IDP\MDATP).
-- If in the new workspace is missing the Log analytics table that the rule query.
+- When migrated a analytics rule that query missing log analytics table in the destination workspace

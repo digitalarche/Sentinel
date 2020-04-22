@@ -1,6 +1,6 @@
 # Export Azure Sentinel analytics rule from one sentinel instance to anther.
 
-- The script is relaying on AZ.sentinel PS Module from **Wortell** https://github.com/wortell/AZSentinel
+- The script is relying on AZ.sentinel PS Module from **Wortell** https://github.com/wortell/AZSentinel
 - The RBAC permission for the user that running the **export part** of the script is at least a Sentinel **reader** https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#azure-sentinel-reader
 - The RBAC permission for the user that running the **import part** of the script is a Sentinel **Contributor** https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#azure-sentinel-contributor
 

@@ -21,3 +21,18 @@ Install-Module AzSentinel -Scope CurrentUser -Force
 - From fusion type.
 - From 1st party alert providers (ASC\AATP\MCAS\IDP\MDATP).
 - When migrated a analytics rule that query missing log analytics table in the destination workspace
+
+
+### export example 
+
+
+Export rule to yaml:
+
+```powershell
+Get-AzSentinelAlertRule -SubscriptionId 6b1ceacd-xxx-xxx-xxx-2078dd96fd96 -WorkspaceName "existingWorkspace" -RuleName "Mimikatz has been detected" | ConvertTo-Json | Out-File c:\temp\exportrule.yaml  
+```
+
+Import Rule from JSON file:
+```powershell
+Import-AzSentinelAlertRule -SubscriptionId 44e4eff8-xxx-xxx-xxx-992ac7286382 -WorkspaceName "NewWorksapce" -Settings .\rule3.yaml -Verbose
+```

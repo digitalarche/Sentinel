@@ -3,7 +3,7 @@ Import-Module AzSentinel
 
 #variables
 $outputFolder = "c:\export\"
-$WorkspaceName = "ImportWorkSpaceID"
+$WorkspaceName = "ImportWorkSpaceName"
 $SubscriptionId = "6b1ceacd-xxxx-xxxx-xxxx-2078dd96fd96"
 
 

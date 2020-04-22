@@ -23,8 +23,6 @@ Install-Module AzSentinel -Scope CurrentUser -Force
 - When migrated a analytics rule that query missing log analytics table in the destination workspace
 
 
-### export example 
-
 
 Export rule to yaml:
 

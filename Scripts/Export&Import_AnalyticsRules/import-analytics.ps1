@@ -1,7 +1,7 @@
 Login-AzAccount
 #variables
 $InputFolder = "c:\import\" # Input folder
-$WorkspaceName = "YourWorkspaceID"
+$WorkspaceName = "YourNewWorkspaceID"
 $SubscriptionId = "8f153238-xxxx-xxxx-xxxx-3043fbe50918"
 
 

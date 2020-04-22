@@ -24,13 +24,13 @@ Install-Module AzSentinel -Scope CurrentUser -Force
 
 
 
-Export rule to yaml:
+Export single rule:
 
 ```powershell
-Get-AzSentinelAlertRule -SubscriptionId 6b1ceacd-xxx-xxx-xxx-2078dd96fd96 -WorkspaceName "existingWorkspace" -RuleName "Mimikatz has been detected" | ConvertTo-Json | Out-File c:\temp\exportrule.yaml  
+Get-AzSentinelAlertRule -SubscriptionId 6b1ceacd-xxx-xxx-xxx-2078dd96fd96 -WorkspaceName "existingWorkspace" -RuleName "Mimikatz has been detected" | ConvertTo-Json | Out-File c:\temp\Mimikatz.yaml  
 ```
 
-Import Rule from JSON file:
+Import Rule:
 ```powershell
-Import-AzSentinelAlertRule -SubscriptionId 44e4eff8-xxx-xxx-xxx-992ac7286382 -WorkspaceName "NewWorksapce" -Settings .\rule3.yaml -Verbose
+Import-AzSentinelAlertRule -SubscriptionId 44e4eff8-xxx-xxx-xxx-992ac7286382 -WorkspaceName "NewWorksapce" -Settings c:\temp\Mimikatz.yaml -Verbose
 ```

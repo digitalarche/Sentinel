@@ -11,6 +11,9 @@ Prerequisite for using this module https://github.com/wortell/AZSentinel#prerequ
 - PowerShell Core
 - Powershell AZ Module - tested with version 2.4.0
 - PowerShell powershell-yaml Module - tested with version 0.4.0
+- Az.sentinel Module (tested with 0.64 version) by running the above command
+
+Install-Module AzSentinel -Scope CurrentUser -Force
 
 ### This script will not migrate Azure Sentinel analytics rules that is:
 

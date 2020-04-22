@@ -1,8 +1,8 @@
 # Export Azure Sentinel analytics rule from one sentinel instance to anther.
 
 - The script is relaying on AZ.sentinel PS Module from **Wortell** https://github.com/wortell/AZSentinel
-- The RBAC permission for the user that running the **export part** of the script is a least Sentinel **reader** https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#azure-sentinel-reader
-- RBAC permission for the user that running the **import part** of the script is a Sentinel **Contributor** https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#azure-sentinel-contributor
+- The RBAC permission for the user that running the **export part** of the script is at least a Sentinel **reader** https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#azure-sentinel-reader
+- The RBAC permission for the user that running the **import part** of the script is a Sentinel **Contributor** https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#azure-sentinel-contributor
 
 ### Preparing the ground
 
@@ -17,3 +17,4 @@ Prerequisite for using this module https://github.com/wortell/AZSentinel#prerequ
 - Not active 
 - From fusion type
 - From 1st party alert providers (ASC\AATP\NM\IDP\MDATP)
+- if in the new workspace that Log analytics table that the rule query is not exist

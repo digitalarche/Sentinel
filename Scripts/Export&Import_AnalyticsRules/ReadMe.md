@@ -16,5 +16,5 @@ Prerequisite for using this module https://github.com/wortell/AZSentinel#prerequ
 
 - Not active.
 - From fusion type.
-- From 1st party alert providers (ASC\AATP\NM\IDP\MDATP).
+- From 1st party alert providers (ASC\AATP\MCAS\IDP\MDATP).
 - If in the new workspace is missing the Log analytics table that the rule query.

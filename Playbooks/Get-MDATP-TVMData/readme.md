@@ -6,11 +6,11 @@ This playbook will ingest MDATP TVM data into sentinel workspace
 
 Authentication part:
 
--audience: "https://graph.microsoft.com"
--clientId: "<your AAD application client ID>"
--secret: "<your AAD app secret>"
--tenant: "<tenant_id>"
--type: "ActiveDirectoryOAuth"
+- audience: "https://graph.microsoft.com"
+- clientId: "<your AAD application client ID>"
+- secret: "<your AAD app secret>"
+- tenant: "<tenant_id>"
+- type: "ActiveDirectoryOAuth"
 
 Give the AAD app the relevant permission as describe here https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/get-discovered-vulnerabilities
 

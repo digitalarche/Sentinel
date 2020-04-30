@@ -7,14 +7,10 @@ For example, if I was assigned number 47, my username would be **user47@sentinel
 
 In this task you will logon to the My Apps portal as a standard user to confirm the accounts functionality.  Afterwards, you will send bad passwords to the account to simulate an unauthorized user attempting to gain access.
 1.	In a browser, navigate to https://myapps.microsoft.com
-2.	In the window that opens, click Use another account. 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
-)<br><br>
-
-3.	Enter the account information:<br>
-Username: **standardXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)
-Password: **Ask the trainer**
+2.	Enter the account information (**please notice that we are using the standard user on this step**):<br>
+Username: **standardXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)<br>
+Password: **Provided by instructor**
 4.	Confirm you have access to the My Apps portal.
 5.	Close all instances of your browser and Navigate back to https://myapps.microsoft.com
 6.	This time, when logging on as **standardxx@sentinellab.xyz** type in an **incorrect password**
@@ -25,35 +21,39 @@ In this task you will log into the Azure portal and navigate to Sentinel.
 
 
 1.	In a browser, navigate to https://portal.azure.com.
-2.	In the window that opens, click Use another account. 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
-)<br><br>
-
-3.	Enter the account information:<br>
-Username: **AdminXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)
+2.	Enter the account information (**please notice that we are using the admin user on this step**):<br>
+Username: **AdminXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class):<br>
 Password: **Ask the trainer**
-4.	This brings you to the Azure Home. In the box at the top, search for Sentinel.
-5.	In the results, click on Azure Sentinel (preview)
+3.	This brings you to the Azure Home. In the box at the top, search for **Sentinel**.
+4.	In the results, click on **Azure Sentinel**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/portal2.PNG
 )<br><br>
 
-6.	Click **briandel**, which is the name of the Sentinel Workspace.
+5.	Click **briandel**, which is the name of the Sentinel Workspace.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/workspace.PNG
 )<br><br>
 
-7.	Within the navigation bar, click **Analytics**
+6.	Within the navigation bar, click **Analytics**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/analytics.png
 )<br><br>
 
-## Task 2: Create Analytics Rule for Failed Logon
-1.	Click **Add**<br>
-In the Name box type standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)<br>
-2.	Select Alert Severity **Medium**
-3.	In **Set Alert Query** copy the following query **(substitute “XX” with your assigned number)**
+## Task 3: Create Analytics Rule for Failed Logon
+1. Click **Create** and choose **Scheduled query rule** from the flyout menu<br>
+
+(**Bonus Tip** - please notice for the other rule creation types that Azure sentinel support)<br>
+
+2. In the Name box type standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)<br>
+3.	Leave the **Description** box blank
+4.	For Tactics, Choose **Initial Access**
+5.	Select Alert Severity **Medium**
+6.	Set Status to Enabled
+7.	Click Next: **Set rule logic**
+8.	In **Rule query** copy the following query (substitute “XX” with your assigned number)
+
 ```powershell
 SigninLogs
 | where Status.errorCode == 50126 // Invalid Username or password
@@ -62,15 +62,26 @@ SigninLogs
 | sort by TimeGenerated desc
 ```
 
-4.	Under Entity Mapping, map the following entities<br>
+4.	Under Entity Mapping, map the following entities
 
-* Account -> UserId (Click **Add**)
-* Host -> UserprincipalName (Click **Add**)
+* Account -> UserprincipalName (Click **Add**)
 * IP address -> IPAddress (Click **Add**)
-5.	Set the Alert Trigger Operator to **Number of results greater than** and the threshold to 0.
-6.	Set the Alert **scheduling Frequency** to 5 minutes and Period to 30 minutes
-7.	Set Alert suppression to On and Suppress alerts for 30 minutes
-8.	Click **Create**.
+5. Set the Query scheduling to:
+o	Run query every: **5 minutes**<br>
+o	Lookup data from the last: **30 minutes**
+
+
+6. Set the Alert Threshold to ‘Generate alert when number of query results’ to **Is greater than** and the threshold to **0**
+7. Under Suppression, Set Stop running query after alert is generated after alert is generated to **On** and Stop running query for: **30 minutes**
+8. 	At the bottom, click Next: **Incident settings**.
+
+9. On Create incidents from alerts triggered by this analytics rule, set to **Enabled**.
+10. Under Group related alert, triggered by this analytics rule, into incidents, set to **Enabled**.
+11. Set Limit the group to alerts created within the selected time frame to **24 Hours**.
+12. Under Group alerts triggered by this analytics rule into a single incident by, select the radio button for **Grouping alerts into a single incident if the selected entities match** and from the drop-down menu, select **Account.**
+
+
+
 
 ## Task 3: Create Analytics Rule for Admin Group Change
 1.	We will Create new Alert <br>

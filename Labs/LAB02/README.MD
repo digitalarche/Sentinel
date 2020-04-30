@@ -153,35 +153,63 @@ o	Host -> ImpactedGroup (Click **Add**)<br>
 9.	Hover over the User account victim4 and click **Related alerts** to see additional alerts related to this Admin group change involving this account.
 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest22.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest22.png
 )<br><br>
 
-## Task 5: Create a playbook to respond to your Incidents
+## Task 6: Create a playbook to respond to your Incidents
 In this playbook we will be adding a user into a group based on a Incidents.  This group is already linked to a conditional access policy which will block user logons to all cloud applications.
 
-1.	Within Azure Sentinel, Navigate to **Playbooks**
-2.	Click **Add Playbook**
-3.	In the Name field type standard**XX**-Block-With-Conditional-Access-Policy (where “XX” is the number you have been assigned)
-4.	Under Resource Group, Select **Use existing** and choose **OI-Default-East-US**
-5.	Click **Create**
-6.	In the Logic Apps Designer, Click **Blank Logic App**
-7.	In the text box **Search connectors and triggers** type **Sentinel** and click on the icon for **Azure Sentinel**.
-8.	Select **When a response to an Azure Sentinel alert is triggered**
-9.	Click **New Step**
-10.	Search for **Sentinel** and click on the **Azure Sentinel** icon and click **Get Accounts (preview)**
+1.	In the Azure Portal, search for **Logic Apps** in the Search Bar at the top.
+2.	Click the **Add** button.
+3.	Under Resource Group, Select **OI-Default-East-US**
+4.	In the Logic App Name field, type standard**XX**-Block-With-Conditional-Access-Policy (where “XX” is the number you have been assigned)
+5.	Select Location **East US**
+6.	Leave Log Analytics turned **Off**
+7.	Click **Review + Create**
+8.	On the next screen, click **Create.**
+9.	Wait for the Logic App to deploy.
+10.	On the Your Deployment is complete screen, click **Go to resource.**
+11.	In the Logic Apps Designer, Click **Blank Logic App**
+12.	In the text box **Search connectors and triggers** type **Sentinel** and click on the icon for **Azure Sentinel**.
+13.	Select **When a response to an Azure Sentinel alert is triggered**
+14.	Click **New Step**
+15.	Search for **Sentinel** and click on the **Azure Sentinel** icon
+16.	Click **Alert - Get Accounts (preview)**
+
+
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/play01.PNG
 )<br><br>
 
-11.	Click the text box **Entities List** and from the flyout, select **Entities**
+17.	Click the text box **Entities List** and from the layout, select **Entities**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/entat01.PNG
 )<br><br>
 
-12.	Click **New Step** and search for Azure AD
-13.	Select **Add user to group**
-14.	Under Group ID, enter 4aa42844-7b1a-410f-b4eb-aacdc3e98b92
-15.	Under User ID, select Accounts AAD user ID from the flyout
+18.	Click **New Step** and search for and select **Control.**
+19.	Click on **For each**
+20.	In the **Select an output from previous steps** click in the text box and click **Accounts** in the flyout
+21.	Click **Add an action**
+22.	Search for and select **Azure AD**
+23.	Select **Get user**
+24.	Click in the **User Id or Principal Name** field
+25.	From the flyout click **Accounts Name**
+26.	Staying within the flyout, click **Expression.**
+27.	In the **fx** box type **string('@')** and click **Ok. **
+28.	Staying within the flyout, click **Accounts UPN Suffix**
+29.	Next, click **Add an action**
+30.	Search for and click on Azure AD
+31.	Select **Add user to group**
+32.	Under Group ID, enter **4aa42844-7b1a-410f-b4eb-aacdc3e98b92**
+33.	Under User ID, select **Id** from the flyout
+34.	At the bottom of the page, click **New Step**
+35.	Search for Azure Sentinel and select **Alert – Get incident (preview)**
+36.	Click Specify Subscription Id and select **Subscription ID** in the flyout
+37.	Click Specify resource group and select **Resource group** from the flyout
+38.	Click Specify workspace id and select **Workspace ID** in the flyout
+39.	Click Specify alert id and select **System alert ID** in the flyout
+
+
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/accountAAD.PNG
 )<br><br>

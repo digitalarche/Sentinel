@@ -73,9 +73,9 @@ Password: **Assigned by instructor**
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/data_ingested.PNG
 )<br><br>
 
-11. press **next steps** tab and discover sample quires and out-off-the-box analytics rules that can be enabled with this data source
+11. press **next steps** tab on the top of the page and discover sample quires, if you scroll down you will find  out-off-the-box analytics rules that can be enabled with this data source
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/next_step.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/next_step.png
 )<br><br>
 
 

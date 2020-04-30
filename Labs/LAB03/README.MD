@@ -47,10 +47,12 @@ Password: **Ask the trainer**<br>
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/menu.png
 )<br><br>
 
+9.	This query is slightly more complex and will look something like this (the date and time fields will be different):
+
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/bar.PNG
 )<br><br>
 
-9.	This query is slightly more complex and will look something like this (the date and time fields will be different):
+
 
 ```powershell
 union SecurityEvent

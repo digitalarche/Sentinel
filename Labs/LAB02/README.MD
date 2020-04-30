@@ -1,7 +1,7 @@
 ## Exercise 2: Setup Alerts (Analytics) and Respond to Incident in Azure Sentinel
 In this section we will configure Alerts in Azure Sentinel to generate Incidents for our security team.  During the review of these Incident we will build a Playbook to simplify the handling of these alerts.<br>
 
-**Task 1**: Log on to the My Apps portal as a **Standard User**<br>
+## Task 1: Log on to the My Apps portal as a **Standard User**<br>
 
 For example, if I was assigned number 47, my username would be **user47@sentinellab.xyz**<br>
 
@@ -16,7 +16,7 @@ Password: **Provided by instructor**
 6.	This time, when logging on as **standardxx@sentinellab.xyz** type in an **incorrect password**
 7.	Repeat this invalid logon attempt **5 times**
 
-**Task 2**: Log on to Azure and Navigate to Sentinel<br>
+## Task 2: Log on to Azure and Navigate to Sentinel<br>
 In this task you will log into the Azure portal and navigate to Sentinel.
 
 
@@ -44,7 +44,7 @@ Password: **Ask the trainer**
 ## Task 3: Create Analytics Rule for Failed Logon
 1. Click **Create** and choose **Scheduled query rule** from the flyout menu<br>
 
-(**Bonus Tip** - please notice for the other rule creation types that Azure sentinel support)<br>
+**Bonus Tip** - Notice for the other rule types that Azure sentinel support)<br>
 
 2. In the Name box type standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)<br>
 3.	Leave the **Description** box blank
@@ -80,15 +80,27 @@ o	Lookup data from the last: **30 minutes**
 11. Set Limit the group to alerts created within the selected time frame to **24 Hours**.
 12. Under Group alerts triggered by this analytics rule into a single incident by, select the radio button for **Grouping alerts into a single incident if the selected entities match** and from the drop-down menu, select **Account.**
 
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/Incidentsettings.png
+)<br><br>
+
+13.	Set Re-open closed matching incidents to **Enabled**.
+14.	At the bottom, click **Next : Automated response.**
+15.	Do not change anything on the next screen and at the bottom click **Next: Review.**
+16.	Click **Create.**
 
 
 
-## Task 3: Create Analytics Rule for Admin Group Change
-1.	We will Create new Alert <br>
--on the analytics main page click **Add**<br>
-In the Name box type Admin**XX** – Admin Group Change (where “XX” is the number you have been assigned at the start of class)
-2.	Select Alert Severity **Medium**
-3.	In **Set Alert Query** copy the following query
+## Task 4: Create Analytics Rule for Admin Group Change
+
+1.	Click **Create** and choose **Scheduled query rule** from the flyout menu
+In the Name box type AdminXX – Admin Group Change (where “XX” is the number you have been assigned at the start of class)
+2.	Leave **Description** blank
+3.	For Tactics, choose **Persistence** and **Privilege Escalation**
+4.	Select Alert Severity **Medium**
+5.	Set Staut to **Enabled.**
+6.	At the bottom, click **Next: Set rule logic.**
+7.	In Rule query copy the following query
+
 ```powershell
 let accttypes = dynamic(['Domain Admins', 'Enterprise Admins', 'Schema Admins', 'Administrators' , 'Account Operators' , 'Backup Operators' , 'Print Operators' , 'Server Operators' , 'Domain Controllers' , 'Read-only Domain Controllers' , 'Group Policy Creator Owners' , 'Cryptographic Operators']);
 SecurityEvent 
@@ -99,19 +111,37 @@ SecurityEvent
 | project ChangeType, ImpactedGroup=TargetUserName, ImpactedAccount=MemberName, ChangeMaker=Account, DC=Computer
 ```
 
-4.	Under Entity Mapping, map the following entities<br>
- * Account -> ImpactedAccount (Click Add)
-* Host -> ImpactedGroup (Click Add)
-5.	Set the Alert Trigger Operator to **Number of results greater than** and the threshold to 0
-6.	Set the Alert **scheduling Frequency** to 5 minutes and Period to 1 hour
-7.	Set **Alert suppression** to On and Suppress alerts for 1 hour
+8.	Under Entity Mapping, map the following entities<br>
+o	Account -> ImpactedAccount (Click **Add**)<br>
+o	Host -> ImpactedGroup (Click **Add**)<br>
 
-## Task 4: Review your Incidents
-1.	Open a new browser tab and Navigate to http://aka.ms/sentinel-investigation to activate the Sentinel Investigation Preview<br>
-2.	Navigate back to Azure Sentinel -> Incidents
-3.	Locate your Incidents that generated from the first rule that you created **standardXX – Failed Logon** (where “XX” is the number you have been assigned at the start of class)
-4.	Click on your Incidents and Click the **Investigate** button
-5.	Within the Investigation window hover over the IP Address node and select **More -> Most prevalent accounts associated with this IP** to bring in additional data related to that IP<br>
+9.	Set the Run query every to **30 minutes**
+10.	Set the Lookup data from the last to **1 hour**
+11.	Set the Alert Threshold to Generate alert when number of query results to **Is greater than** and the threshold to **0**
+12.	Set Stop running query after alert is generated to **On** and Stop running query for: **8 hours**
+13.	At the bottom, click **Next: Incident settings.**
+14.	On Create incidents from alerts triggered by this analytics rule, set to **Enabled.**
+15.	Under Group related alert, triggered by this analytics rule, into incidents, set to **Enabled.**
+16.	Set Limit the group to alerts created within the selected time frame to **24 Hours.**
+17.	Under Group alerts triggered by this analytics rule into a single incident by, select the radio button for **Grouping alerts into a single incident if the selected entities match** and from the drop-down menu, select **Account.**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/Incidentsettings.png
+)<br><br>
+
+18.	Set Re-open closed matching incidents to **Enabled.**
+19.	At the bottom, click **Next: Automated response.**
+20.	Leave the following page unchanged and click **Next: Review**
+21.	Click **Create**
+
+
+
+## Task 5: Review your Incidents
+1.	Navigate back to **Incidents**
+2.	Locate your incident standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)
+3.	Click your Incident. Then Click the **Investigate** button on the lower right-hand side
+4.	Within the Investigation window hover over the IP Address node and select **Related Alerts** to bring in additional alert data associated to that IP address
+**Note**: Data will vary based on the other events occurring in the lab. The IP address will likely be different and the number of related alerts will depend on other users in the lab. This is how Investigation within Sentinel is intended to function.
+
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest01.PNG
 )<br><br>

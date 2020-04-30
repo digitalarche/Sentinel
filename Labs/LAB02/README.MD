@@ -211,7 +211,7 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 
 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/accountAAD.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/logicapp1.png
 )<br><br>
 16.	Click **Save**
 

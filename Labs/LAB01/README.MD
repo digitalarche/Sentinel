@@ -51,26 +51,31 @@ Password: **Assigned by instructor**
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/portal2_new.PNG
 )<br><br>
 
-6.	Click **briandel**, which is the name of the Sentinel Workspace.
+5.	Click **briandel**, which is the name of the Sentinel Workspace.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/workspace.PNG
 )<br><br>
 
-7.	In the Navigation bar, select **Data Connectors**
+6.	In the Navigation bar, select **Data Connectors**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/connectors.PNG
 )<br><br>
 
-8.	Locate the data connectors **Azure Active Directory** and **Security Events** and confirm that the Last log received time is within the last 30 minutes.
-9.	Click the **Azure Active Directory** connector and Click **Open connector page**
-10.	Confirm the status of the connector as **Connected**
+7.	Locate the data connectors **Azure Active Directory** and **Security Events** and confirm that the Last log received time is within the last 30 minutes.
+8.	Click the **Azure Active Directory** connector and Click **Open connector page**
+9.	Confirm the status of the connector as **Connected**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/AAD.PNG
 )<br><br>
 
-11.	Confirm that there has been recent data received
+10.	Confirm that there has been recent data received
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/data_ingested.PNG
+)<br><br>
+
+11. press **next steps** tab and discover sample quires and out-off-the-box analytics rules that can be enabled with this data source
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/next_step.PNG
 )<br><br>
 
 

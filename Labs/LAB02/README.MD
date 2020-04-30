@@ -223,16 +223,17 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 46.	Click Specify comment and type in **“User was blocked with Conditional Access by Logic App”**
 
 
-* This is how it should look 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/logicapp02.png
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/logicapp2.png
 )<br><br>
 
-## Task 6: Use your new playbook to respond to a Incidents
+47.	Click **Save**
+
+## Task 7: Use your new playbook to respond to a Incidents
 1.	Navigate back to **Sentinel -> Incidents** in the Azure Portal
-2.	Click on your Incidents standardXX – Failed Logon
+2.	Click on your incident standard**XX** – Failed Logon
 3.	Click **View full details**
-4.	Under the Incidents, click **View playbooks**
+4.	Under the Incident, click **View playbooks**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/viewplay.PNG
 )<br><br>
@@ -240,15 +241,12 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 5.	From the list of Playbooks locate **standardXX-Block-With-Conditional-Access-Policy** and click **Run**
 6.	Close all browser windows and open a new browser
 7.	Navigate to https://myapps.microsoft.com
-8.	In the window that opens, click **Use another account**. 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/use.PNG
-)<br><br>
 
-9.	Enter the account information:
-Username: **standardXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)
+8.	Enter the account information:<br>
+Username: **standardXX@sentinellab.xyz** (where “XX” is the number you have been assigned at the start of class)<br>
 Password: **Ask the trainer**
-10.	You will now see that access to the my apps portal has been blocked due to conditional access
+9.	You will now see that access to the my apps portal has been blocked due to conditional access
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/myapp.PNG
 )<br><br>

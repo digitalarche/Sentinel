@@ -143,7 +143,7 @@ o	Host -> ImpactedGroup (Click **Add**)<br>
 **Note**: Data will vary based on the other events occurring in the lab. The IP address will likely be different and the number of related alerts will depend on other users in the lab. This is how Investigation within Sentinel is intended to function.
 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest01.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/invest011.PNG
 )<br><br>
 
 6.	Then, hover once again over the IP address and click **Related alerts** to see other Sentinel alerts based on the same IP Address to help identify other problems related to this bad logon<br>

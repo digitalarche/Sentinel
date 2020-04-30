@@ -213,11 +213,19 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/logicapp1.png
 )<br><br>
-16.	Click **Save**
+
+40.	Click New Step, search for Azure Sentinel and select **Add comment to incident (V2) (preview)**
+41.	Click Specify Subscription Id and select **Subscription ID** in the flyout
+42.	Click Specify resource group and select **Resource group** from the flyout
+43.	Click Specify workspace id and select **Workspace ID** in the flyout
+44.	Click Identifier and select **Incident** from the drop down menu
+45.	Click Specify alert / incident and click **Number** from the flyout
+46.	Click Specify comment and type in **“User was blocked with Conditional Access by Logic App”**
+
 
 * This is how it should look 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/LA01.png
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/logicapp02.png
 )<br><br>
 
 ## Task 6: Use your new playbook to respond to a Incidents

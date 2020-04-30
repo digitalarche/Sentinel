@@ -48,7 +48,7 @@ Password: **Assigned by instructor**
 4.	In the results, click on **Azure Sentinel**.
 
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/portal2.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB01/screenshots/portal2_new.PNG
 )<br><br>
 
 6.	Click **briandel**, which is the name of the Sentinel Workspace.

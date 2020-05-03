@@ -111,61 +111,69 @@ In this task, you will learn to proactively investigate using Sentinel Dashboard
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/global_insecure.png
 )<br><br>
 
-2.	On the pie chart, we can immediately see something important. Out of all the Insecure Protocols that could be running in this estate, only Insecure LDAP shows up. That tell us that, so long as this trend continues, we could safely turn off other protocols such as NTLMv1 and SMB1. Mouse over the pie chart to conform that 100% of the Insecure Protocols in the environment are Insecure LDAP.
 
+3.	We can look into to the Insecure LDAP section of the page (directly below the Overview) for more insightful data representations.<br>
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash04.PNG
-)<br><br>
-
-3.	We can also drop down to the Insecure LDAP section of the page (directly below the Overview) for more insightful data representations. Step 3: Understand and Manipulate the Insecure Protocol Queries Behind the Dashboard<br>
-1.	On the **Insecure Protocols** dashboard, scroll down to **Insecure LDA**P**. This was the most active Insecure Protocol in the estate, so it makes sense to examine it closely.
-2.	Note that we can drill down in a number of ways – by **Client, Time**, and by **Details**.
-3.	By clicking on portions of the pie chart on the far left, Insecure LDAP, by client, we can carve the data by client. 
-
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash05.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/unsignedLDAP.png
 )<br><br>
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash06.PNG
+**Step 3**: Understand and Manipulate the Insecure Protocol Queries Behind the Workbook<br>
+1.	On the **Insecure Protocols** workbook, scroll down to **Unsigned LDAP**. This was the most active Insecure Protocol in the estate, so it makes sense to examine it closely.
+2.	Note that by clicking on an account on the left, you may filter the Account Details to the right.
+
+**Step 4**: Delve deeper in the Data Represented in the Workbook
+
+1.	Sometimes we will need to assist our customers in delving deeper into a particular data set or sets. In order to do that, we will often want to drill down closer to the actual data collected by Sentinel (Log Analytics on the back end). 
+2.	Click on the **Azure Sentinel - Workbooks** at the top of the page
+
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/workbook_bar.png
 )<br><br>
 
-4.	On the far right, we can also see a table containing a filtered subset of the data (Insecure LDAP, by details).
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash07.PNG
-)<br><br>
-5.	Sometimes we will need to assist our customers in delving deeper into a particular data set or sets. In order to do that, we will often want to drill down closer to the actual data collected by Sentinel (Log Analytics on the back end). Let’s do this for this visualizer, Insecure LDAP by details.
-6.	Click on the Analytics Blade icon in the upper right corner of the visualizer
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash08.PNG
-)<br><br>
-7.	This brings up the Kusto Query Language (KQL) query that is used to populate the visualizer. Peruse the query.
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash09.PNG
-)<br><br>
-8.	This query is asking for logs with EventID 2889 (insecure LDAP bind) and is doing some extractions as well as RegEx matching to put the data in an acceptable format. It is summarizing the data by count (Account, IPAddress) and sorting it in descending order. We can see this in the data that is returned.
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash10.PNG
-)<br><br>
-9.	We see now that we have an actionable set of data. We know the accounts and IPAddresses that are issuing Insecure LDAP binds. We know where we need to look in order to remediate the problem and ultimately to disallow Insecure LDAP throughout our estate.
-10.	Let’s say we needed to go a bit deeper. For example, maybe we need to know the Domain Controller being targeted by the Insecure LDAP binds. We can easily do that in the following steps.
-11.	Highlight the whole query, right click and click **Copy.**
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash11.PNG
-)<br><br>
-12.	At the top, click the **Plus Sign** to open a new Query window.
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash12.PNG
-)<br><br>
-13.	In the window that opens, Paste the copied query.
-14.	Rem out the last two lines using backslashes, like this:
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash13.PNG
-)<br><br>
-15.	Change the **Time range** to **Last 7 days** and click Run 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash14.PNG
-)<br><br>
-16.	This returns the results that are not grouped – closer to what you might think of as “raw” log data. Click one of the chevrons to the left side of the screen in order to examine one of these logs.
-17.	This type of data can help fill in the missing pieces to our story. Depending on which log you clicked, you can gain the missing information. In the example below, we see that victim7 made an Insecure LDAP bind from IP 10.1.0.4 and against DC04.
-18.	Click on Dashboard in the upper right corner, to return to the dashboard.
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash15.PNG
+3.	Click on **Logs**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/worbook_logs.png
 )<br><br>
 
-19.	On the dashboard page, click on the shield in the upper left corner, next to Insecure Protocols overview.
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/dash16.PNG
+4.	Let’s delve deeper into Unsigned LDAP Traffic using a query that is doing some extractions as well as RegEx matching to put the data in an acceptable format. 
+5.	For example, maybe we need to know the Domain Controller being targeted by the Insecure LDAP binds. We can easily do that in the following steps.
+6.	In the query window, copy the following query:
+
+```powershell
+Event
+ | where EventID == 2889 
+ | project ParameterXml, DomainController=Computer , TimeGenerated, EventID 
+ | parse ParameterXml with * "<Param>" IPAddress ":" *
+ | parse ParameterXml with * "><Param>" Account "</" *
+ | parse kind = regex ParameterXml with * "</Param><Param>" * "</Param><Param>" BindingType "</Param>"
+ | project DomainController  , TimeGenerated, Account, IPAddress  
+```
+And click **Run**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/workbook_script.png
 )<br><br>
-20.	This returns us to the Azure Sentinel homepage.
+
+
+In the output, Click one of the chevrons to the left side of the screen in order to examine one of these logs.
+
+7.	This type of data can help fill in the missing pieces to our story. Depending on which log you clicked, you can gain the missing information. In the example below, we see that victim7 made an Insecure LDAP bind from IP 10.1.0.4 and against DC04. Your data will look different.
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/workbook_results1.png
+)<br><br>
+
+## Bonus exercise - Import custom workbook from Azure sentinel GitHub into the workbook galley 
+
+In this bonus exercise you will need to import custom workbook that build by the community into the Workbook gallery <br>
+
+### Installation Instructions:
+ 
+1. Navigate to GitHub https://github.com/CliveW-MSFT/KQLpublic/blob/master/KQL/Workbooks/Workspace%20Usage%20Report%20v1.4.txt <br>
+
+Select the [RAW] button, [Copy] the workbook file content (these are JSON files),  open Azure Monitor Workbooks (from portal.azure.com) - open the “empty” Azure Monitor Workbook, in “advanced edit” mode (press the </> icon ).  Please [paste] over any json that exists.   
+
+2. Then Press [apply] then [Done Editing]
+
+
 
 ### Continue with the next lab
 LAB 04 - Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities with KQL Queries , click <a href="https://github.com/Yaniv-Shasha/Sentinel/tree/master/Labs/LAB04" target="_blank">here</a>

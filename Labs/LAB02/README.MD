@@ -3,7 +3,7 @@ In this section we will configure Alerts in Azure Sentinel to generate Incidents
 
 ## Task 1: Log on to the My Apps portal as a **Standard User**<br>
 
-For example, if I was assigned number 47, my username would be **user47@sentinellab.xyz**<br>
+For example, if I was assigned number 47, my username would be **standard47@sentinellab.xyz**<br>
 
 In this task you will logon to the My Apps portal as a standard user to confirm the accounts functionality.  Afterwards, you will send bad passwords to the account to simulate an unauthorized user attempting to gain access.
 1.	In a browser, navigate to https://myapps.microsoft.com

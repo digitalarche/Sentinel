@@ -46,13 +46,15 @@ Password: **Ask the trainer**
 
 **Bonus Tip** - Notice for the other rule types that Azure sentinel support)<br>
 
-2. In the Name box type standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)<br>
+2. In the Name box **type standardXX – Failed Logon** (where “XX” is the number you have been assigned at the start of class)<br>
 3.	Leave the **Description** box blank
 4.	For Tactics, Choose **Initial Access**
 5.	Select Alert Severity **Medium**
 6.	Set Status to Enabled
 7.	Click **Next: Set rule logic**
-8.	In **Rule query** copy the following query (substitute “XX” with your assigned number)
+8.	In **Rule query** copy the following query: 
+
+## Important!!!! **(INSIDE THE QUERY substitute “XX” with your assigned number)**
 
 ```powershell
 SigninLogs
@@ -93,7 +95,7 @@ o	Lookup data from the last: **30 minutes**
 ## Task 4: Create Analytics Rule for Admin Group Change
 
 1.	Click **Create** and choose **Scheduled query rule** from the flyout menu<br>
-In the Name box type AdminXX – Admin Group Change (where “XX” is the number you have been assigned at the start of class)
+In the Name box **type AdminXX – Admin Group Change** (where “XX” is the number you have been assigned at the start of class)
 2.	Leave **Description** blank
 3.	For Tactics, choose **Persistence** and **Privilege Escalation**
 4.	Select Alert Severity **Medium**

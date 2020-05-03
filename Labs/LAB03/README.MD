@@ -3,7 +3,7 @@ In this exercise, you will learn how to access Azure Sentinel and how to use a W
 For this lab, Data connectors have already been added and appropriately configured as necessary.
 .<br>
 
-**Task 1:** Log on to Azure and Navigate to Sentinel
+## Task 1: Log on to Azure and Navigate to Sentinel
 In this task, you will log into the Azure portal and navigate to Sentinel.
 1.	In a browser, navigate to https://portal.azure.com.
 
@@ -44,12 +44,12 @@ Password: **Ask the trainer**<br>
 7.	In keeping with this simple query, this piece of data in the example above tells a simple story. In the example here, the machine DC04.ad.briandel.ca sent (through the Firewall) a UDP packet to 10.0.0.4 over Port 59,121. In itself, it is not terribly interesting. But in aggregate or as part of an investigation, Kusto queries like this can provide critical data as we shall see.
 8.	Return to the Sentinel Overview page by clicking **Azure Sentinel – Overview** at the top.
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/menu.png
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/menu.PNG
 )<br><br>
 
 9.	This query is slightly more complex and will look something like this (the date and time fields will be different):
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/bar.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/securityevents.PNG
 )<br><br>
 
 

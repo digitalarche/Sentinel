@@ -62,31 +62,31 @@ SigninLogs
 | sort by TimeGenerated desc
 ```
 
-4.	Under Entity Mapping, map the following entities
+9. Under Entity Mapping, map the following entities
 
 * Account -> UserprincipalName (Click **Add**)
 * IP address -> IPAddress (Click **Add**)
-5. Set the Query scheduling to:
+10. Set the Query scheduling to:
 o	Run query every: **5 minutes**<br>
 o	Lookup data from the last: **30 minutes**
 
 
-6. Set the Alert Threshold to ‘Generate alert when number of query results’ to **Is greater than** and the threshold to **0**
-7. Under Suppression, Set Stop running query after alert is generated after alert is generated to **On** and Stop running query for: **30 minutes**
-8. 	At the bottom, click Next: **Incident settings**.
+11. Set the Alert Threshold to ‘Generate alert when number of query results’ to **Is greater than** and the threshold to **0**
+12. Under Suppression, Set Stop running query after alert is generated after alert is generated to **On** and Stop running query for: **30 minutes**
+13. 	At the bottom, click Next: **Incident settings**.
 
-9. On Create incidents from alerts triggered by this analytics rule, set to **Enabled**.
-10. Under Group related alert, triggered by this analytics rule, into incidents, set to **Enabled**.
-11. Set Limit the group to alerts created within the selected time frame to **24 Hours**.
-12. Under Group alerts triggered by this analytics rule into a single incident by, select the radio button for **Grouping alerts into a single incident if the selected entities match** and from the drop-down menu, select **Account.**
+14. On Create incidents from alerts triggered by this analytics rule, set to **Enabled**.
+15. Under Group related alert, triggered by this analytics rule, into incidents, set to **Enabled**.
+16. Set Limit the group to alerts created within the selected time frame to **24 Hours**.
+17. Under Group alerts triggered by this analytics rule into a single incident by, select the radio button for **Grouping alerts into a single incident if the selected entities match** and from the drop-down menu, select **Account.**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/Incidentsettings.png
 )<br><br>
 
-13.	Set Re-open closed matching incidents to **Enabled**.
-14.	At the bottom, click **Next : Automated response.**
-15.	Do not change anything on the next screen and at the bottom click **Next: Review.**
-16.	Click **Create.**
+18.	Set Re-open closed matching incidents to **Enabled**.
+19.	At the bottom, click **Next : Automated response.**
+20.	Do not change anything on the next screen and at the bottom click **Next: Review.**
+21.	Click **Create.**
 
 
 

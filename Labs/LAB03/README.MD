@@ -73,7 +73,7 @@ Your data will look different than the example above.
 
 **Step 1**: Learn to navigate the Workbooks frame<br>
 
-In this task, you will learn to proactively investigate using Sentinel Dashboards. Sentinel Dashboards provide visualized data from your connected data sources to help render them proactively actionable.
+In this task, you will learn to proactively investigate using Sentinel Dashboards. Sentinel Workbooks provide visualized data from your connected data sources to help render them proactively actionable.
 1.	From the Sentinel Overview page, click on Workbooks.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/workbookMenu.png

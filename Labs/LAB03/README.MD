@@ -160,28 +160,6 @@ In the output, Click one of the chevrons to the left side of the screen in order
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/workbook_results1.png
 )<br><br>
 
-## Bonus exercise - Import custom workbook from Azure sentinel GitHub into the workbook galley 
-
-In this bonus exercise you will need to import custom workbook that build by the community into the Workbook gallery <br>
-
-### Installation Instructions:
- 
-1. Navigate to GitHub https://github.com/CliveW-MSFT/KQLpublic/blob/master/KQL/Workbooks/Workspace%20Usage%20Report%20v1.4.txt <br>
-
-2. Select the [RAW] button,<br>
-
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/import1.png)<br>
-
- 3. [Copy] the workbook file content (these are JSON files),<br>
- 4.  open Azure Monitor Workbooks (from portal.azure.com) - open the “empty” Azure Monitor Workbook, in “advanced edit” mode (press the </> icon ).<br>  
-
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/import2.png)<br>
-
-
- 5. Please [paste] over any json that exists.<br>   
-
-6. Then Press [apply] then [Done Editing]<br>
-
 
 
 ### Continue with the next lab

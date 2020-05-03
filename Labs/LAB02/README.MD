@@ -201,12 +201,24 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 25.	From the flyout click **Accounts Name**
 26.	Staying within the flyout, click **Expression.**
 27.	In the **fx** box type **string('@')** and click **Ok**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/logic_Expression.png
+)<br><br>
+
 28.	Staying within the flyout, click **Accounts UPN Suffix**
 29.	Next, click **Add an action**
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/logic_Expression2.png
+)<br><br>
+
 30.	Search for and click on Azure AD
 31.	Select **Add user to group**
 32.	Under Group ID, enter **4aa42844-7b1a-410f-b4eb-aacdc3e98b92**
 33.	Under User ID, select **Id** from the flyout
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/logicapp_id.png
+)<br><br>
+
 34.	At the bottom of the page, click **New Step**
 35.	Search for Azure Sentinel and select **Alert – Get incident (preview)**
 36.	Click Specify Subscription Id and select **Subscription ID** in the flyout

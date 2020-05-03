@@ -51,7 +51,7 @@ Password: **Ask the trainer**
 4.	For Tactics, Choose **Initial Access**
 5.	Select Alert Severity **Medium**
 6.	Set Status to Enabled
-7.	Click Next: **Set rule logic**
+7.	Click **Next: Set rule logic**
 8.	In **Rule query** copy the following query (substitute “XX” with your assigned number)
 
 ```powershell
@@ -66,14 +66,14 @@ SigninLogs
 
 * Account -> UserprincipalName (Click **Add**)
 * IP address -> IPAddress (Click **Add**)
-10. Set the Query scheduling to:
+10. Set the Query scheduling to:<br>
 o	Run query every: **5 minutes**<br>
 o	Lookup data from the last: **30 minutes**
 
 
 11. Set the Alert Threshold to ‘Generate alert when number of query results’ to **Is greater than** and the threshold to **0**
 12. Under Suppression, Set Stop running query after alert is generated after alert is generated to **On** and Stop running query for: **30 minutes**
-13. 	At the bottom, click Next: **Incident settings**.
+13. At the bottom, click Next: **Incident settings**.
 
 14. On Create incidents from alerts triggered by this analytics rule, set to **Enabled**.
 15. Under Group related alert, triggered by this analytics rule, into incidents, set to **Enabled**.
@@ -92,7 +92,7 @@ o	Lookup data from the last: **30 minutes**
 
 ## Task 4: Create Analytics Rule for Admin Group Change
 
-1.	Click **Create** and choose **Scheduled query rule** from the flyout menu
+1.	Click **Create** and choose **Scheduled query rule** from the flyout menu<br>
 In the Name box type AdminXX – Admin Group Change (where “XX” is the number you have been assigned at the start of class)
 2.	Leave **Description** blank
 3.	For Tactics, choose **Persistence** and **Privilege Escalation**
@@ -250,6 +250,10 @@ Password: **Ask the trainer**
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/myapp.PNG
 )<br><br>
+
+## Task 8: (Optional) Review Additional Logic Apps Controls
+
+Navigate to Azure Sentinel official GitHub Repository to the playbook section https://github.com/Azure/Azure-Sentinel/tree/master/Playbooks <br> review the list of playbooks and see the deployments options. 
 
 ### Continue with the next lab
 LAB 03 - Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities Visually, click <a href="https://github.com/Yaniv-Shasha/Sentinel/tree/master/Labs/LAB03" target="_blank">here</a>

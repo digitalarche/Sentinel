@@ -19,14 +19,14 @@ As in Task 1, we will be proactively hunting for Indicators of Attack in Sentine
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt03.PNG
 )<br><br>
 
-6.	Look at the Results column. Note that several of these queries have returned results. These require further investigation. You will want to help your customers pay special investigative attention to the results of queries like New processes observed in last 24 hours, and uncommon processes – bottom 5%. These can be indicators of compromise that are often missed.
+6.	Look at the Results column. Note that several of these queries have returned results. These require further investigation. You will want to help your customers pay special investigative attention to the results of queries like **New processes observed in last 24 hours**, and **uncommon processes – bottom 5%**. These can be indicators of compromise that are often missed.
 
 **Task 2. Run Several Single Hunting Queries and Examine the Output in Detail**<br>
 
 In this Task, we will run several single queries to hunt for indicators of compromise.<br>
 
 **Step 1:** Run the New processes observed Query and Examine the Output<br>
-1.	Click on the query New processes observed in the last 24 hours.
+1.	Click on the query **New processes observed in the last 24 hours**.
 2.	This brings up information about this Hunting query on the right side of the screen.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt04.PNG

@@ -56,6 +56,9 @@ Password: **Ask the trainer**
 
 ## Important!!!! **(INSIDE THE QUERY substitute “XX” with your assigned number)**
 
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/examplequery.png
+)<br><br>
+
 ```powershell
 SigninLogs
 | where Status.errorCode == 50126 // Invalid Username or password

@@ -268,9 +268,9 @@ Password: **Ask the trainer**
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB02/screenshots/myapp.PNG
 )<br><br>
 
-## Task 8: (Optional) Review Additional Logic Apps Controls
+## Task 8: (Optional) Review Additional Logic Apps in Azure Sentinel GitHub
 
-Navigate to Azure Sentinel official GitHub Repository to the playbook section https://github.com/Azure/Azure-Sentinel/tree/master/Playbooks <br> review the list of playbooks and see the deployments options. 
+Navigate to Azure Sentinel official GitHub Repository into the playbook section https://github.com/Azure/Azure-Sentinel/tree/master/Playbooks <br> review the list of playbooks and the deployment options. 
 
 ### Continue with the next lab
 LAB 03 - Proactively Investigate Potential Threats, Misconfigurations, and Suspicious Activities Visually, click <a href="https://github.com/Yaniv-Shasha/Sentinel/tree/master/Labs/LAB03" target="_blank">here</a>

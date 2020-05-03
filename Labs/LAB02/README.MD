@@ -44,7 +44,7 @@ Password: **Ask the trainer**
 ## Task 3: Create Analytics Rule for Failed Logon
 1. Click **Create** and choose **Scheduled query rule** from the flyout menu<br>
 
-**Bonus Tip** - Notice for the other rule types that Azure sentinel support)<br>
+**Bonus Tip** - Notice for the other rule types that Azure sentinel support<br>
 
 2. In the Name box **type standardXX – Failed Logon** (where “XX” is the number you have been assigned at the start of class)<br>
 3.	Leave the **Description** box blank

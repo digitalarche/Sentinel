@@ -52,11 +52,10 @@ Password: **Ask the trainer**<br>
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/securityevents1.PNG
 )<br><br>
 
-10. This query is slightly more complex and will look something like this (the date and time fields will be different):
+10. This query is slightly more complex and will look something like this
 
 ```powershell
 union SecurityEvent
-| where TimeGenerated >= datetime(2019-10-03T16:19:04.063Z) and TimeGenerated < datetime(2019-10-03T16:19:04.063Z) + 1h
 ```
 
 11.	This query is asking for a **SecurityEvent** (from a Windows security log) during a specified date and time.

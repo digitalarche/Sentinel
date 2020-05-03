@@ -9,7 +9,7 @@ As in Task 1, we will be proactively hunting for Indicators of Attack in Sentine
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt01.PNG
 )<br><br>
 
-3.	Examine the Queries in the middle pane. These are built-in KQL queries provided to help you hunt for adversaries in your environment. Pay attention to the description and also special attention to the Tactics column. You may learn more about a particular tactic by mousing over it for a description. This column helps you understand which part of the attacker kill chain you may insert yourself in with the query. For example, by examining Hosts with new logons, you may be able to detect Lateral Movement in the environment.
+3.	Examine the Queries in the middle pane. These are built-in KQL queries provided to help you hunt for adversaries in your environment. Pay attention to the description and also special attention to the Tactics column. You may learn more about a particular tactic by moussing over it for a description. This column helps you understand which part of the attacker kill chain you may insert yourself in with the query. For example, by examining **Hosts with new logons**, you may be able to detect Lateral Movement in the environment.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt02.PNG
 )<br><br>

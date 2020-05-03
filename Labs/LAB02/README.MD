@@ -200,7 +200,7 @@ In this playbook we will be adding a user into a group based on a Incidents.  Th
 24.	Click in the **User Id or Principal Name** field
 25.	From the flyout click **Accounts Name**
 26.	Staying within the flyout, click **Expression.**
-27.	In the **fx** box type **string('@')** and click **Ok. **
+27.	In the **fx** box type **string('@')** and click **Ok**
 28.	Staying within the flyout, click **Accounts UPN Suffix**
 29.	Next, click **Add an action**
 30.	Search for and click on Azure AD

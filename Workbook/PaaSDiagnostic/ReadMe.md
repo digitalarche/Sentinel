@@ -21,7 +21,7 @@ Open Azure Monitor Workbooks
 
 1. In “advanced edit” mode (press the </> icon) - Choose "Gallery Template" for JSON file or ARM, then press the blue arrow (to the left of the [Apply] button) to download the file
 
-![alt text](![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Workbook/PaaSDiagnostic/pics/1.png
+(![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Workbook/PaaSDiagnostic/pics/1.png
 )<br><br>
 
 

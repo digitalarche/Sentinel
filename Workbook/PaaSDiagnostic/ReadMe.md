@@ -1,6 +1,8 @@
-# My store for useful KQL and Azure Monitor Workbooks (public share)
+# Azure monitor Workbook to visualize PaaS coverage for Azure Sentinel  
 
-KQL and Azure Monitor Workbooks you may find useful 
+this workbook will bring all the PaaS services under the selected subscription and check if it send diagnostic logs to sentinel Workspace.
+you can use this workbook as compliance report to track you log collection coverage from Azure PaaS services.
+currently the supported workloads are: Keyvault, eventhub, NSG, webApps, Azure SQL, AzureFW, LogicApp, etc...
 
 
 ## Workbooks - how to Import and Export:
@@ -19,6 +21,7 @@ Open Azure Monitor Workbooks
 
 1. In “advanced edit” mode (press the </> icon) - Choose "Gallery Template" for JSON file or ARM, then press the blue arrow (to the left of the [Apply] button) to download the file
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/blob/master/Workbook/PaaS%20Diagnostic/pics/1.png
+![alt text](![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Workbook/PaaSDiagnostic/pics/1.png
 )<br><br>
+
 

@@ -18,3 +18,7 @@ This is repeated in a file (open the instructions file in *RAW* mode and downloa
 Open Azure Monitor Workbooks
 
 1. In “advanced edit” mode (press the </> icon) - Choose "Gallery Template" for JSON file or ARM, then press the blue arrow (to the left of the [Apply] button) to download the file
+
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/blob/master/Workbook/PaaS%20Diagnostic/pics/1.png
+)<br><br>
+

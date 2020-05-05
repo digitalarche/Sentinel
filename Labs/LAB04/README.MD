@@ -121,7 +121,7 @@ In this Task, you will pick up where the Insecure Protocols dashboard left off. 
 
 ```powershell
 SigninLogs
-| where ClientAppUsed in ('Other clients; Older office clients', 'Other clients', 'Other clients; IMAP', 'Other clients; POP', 'Other clients; SMTP')
+| where ClientAppUsed in ('Other clients; Older office clients', 'Other clients', 'Other clients; IMAP', 'Other clients; POP', 'Authenticated SMTP')
 | where TimeGenerated >ago(30d)
 | summarize count() by UserPrincipalName, IPAddress, ClientAppUsed
 ```

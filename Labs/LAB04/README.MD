@@ -38,7 +38,7 @@ In this Task, we will run several single queries to hunt for indicators of compr
 )<br><br>
 
 5.	Briefly examine the table of results. Notice that it features HostCount  and FileName columns of information. From the results, we can see that there have been a number of new processes launched across the estate in the last 24 hours.
-6.	This may be a sign of normal, benign programs being run. However, in normally stable environments, these new processes could provide an indication of an unauthorized/malicious binary that has been installed and run. Look closely at the results as shown below. 
+6.	This may be a sign of normal, benign programs being run. However, in normally stable environments, these new processes could provide an indication of an unauthorized/malicious binary that has been installed and run. Look closely at the results as shown below.<br>(**The results on this phase may looks differently on your side!** )
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt06.PNG
 )<br><br>
 

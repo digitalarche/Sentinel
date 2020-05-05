@@ -94,9 +94,9 @@ SecurityEvent
 ```
 4.	Examine the output. Here you would hunt for any Accounts that you would not expect to log onto DCs. For example, an account that did not belong to a member of the IT staff (and specifically an Active Directory administrator) would throw a red flag to take action. You could also additionally hunt for discrepancies in logon times, for example, by modifying the query in various ways.
 
-5.	In the query results, do you see any accounts that you would flag with your customer? In the example below, we see an account called victim7 having logged into DC03. That is definitely an indicator of compromise. We would need, in this case, to take action against both the account and potentially inside of Active Directory. We could even be in an incident response type of scenario.
+5.	In the query results, do you see any accounts that you would flag with your customer? In the example below, we see an account called briandel having logged into DC01. That is definitely an indicator of compromise. We would need, in this case, to take action against both the account and potentially inside of Active Directory. We could even be in an incident response type of scenario.
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt13.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/brain.png
 )<br><br>
 
 6.	At the top of the page, click **Azure Sentinel – Hunting** to return to the Hunting pane.

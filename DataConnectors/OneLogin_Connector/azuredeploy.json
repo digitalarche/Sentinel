@@ -3,12 +3,12 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "FunctionName": {
-            "defaultValue": "ZoomLogs",
+            "defaultValue": "OneLoginLogs",
             "type": "string"
         },
         "customLogName": {
             "type": "string",
-            "defaultValue": "Zoom"
+            "defaultValue": "OneLogin"
         },  
         "workspaceID": {
             "type": "string",
@@ -17,10 +17,6 @@
         "workspaceKey": {
             "type": "string",
             "defaultValue": "<workspaceKey>"
-        },
-        "ZoomVerification": {
-            "type": "string",
-            "defaultValue": "None"
         }
     },
     "variables": {
@@ -202,8 +198,7 @@
                         "customLogName": "[parameters('customLogName')]",
                         "workspaceID": "[parameters('workspaceID')]",
                         "workspaceKey": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('FunctionName'), 'workspaceKey')).SecretUriWithVersion, ')')]", 
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/Azure/Azure-Sentinel/blob/ZoomLogs/DataConnectors/Zoom/zoom_logs_template.zip?raw=true",
-                        "ZoomVerification": "[parameters('ZoomVerification')]"
+                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/Yaniv-Shasha/Sentinel/blob/master/DataConnectors/OneLogin_Connector/OneLogin_logs_template.zip?raw=true"
                     } 
                 }
             ]

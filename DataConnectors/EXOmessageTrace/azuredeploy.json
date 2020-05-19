@@ -76,6 +76,21 @@
             }
         },
         {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2016-10-01",
+            "name": "[concat(parameters('FunctionName'), '/ExchangeUserPassword')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('FunctionName'))]"
+            ],
+            "properties": {
+                "value": "[parameters('ExchangeUserPassword')]",
+                "contentType": "string",
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-06-01",
             "name": "[tolower(parameters('FunctionName'))]",

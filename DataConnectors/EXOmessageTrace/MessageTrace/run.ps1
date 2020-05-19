@@ -84,11 +84,16 @@ if ($session) {Import-PSSession $session -CommandName Get-MessageTrace  -AllowCl
  
 #This sets the start and stop time, $tracker is read from the last time the function was run. (It will fail on the first run.)
 $tracker = "D:\home\timetracker.log" # change to location of choise this is the root.
+
+
 $startTime = Get-date -format "yyyy-MM-ddTHH:mm:ss.fffZ"
  
 #After first run remark the configured date 
 #$storedTime = Get-content $Tracker
-$storedTime = "2020-03-01T11:20:35.464Z"
+
+$startdatetemp =(Get-Date).adddays(-12)
+$storedTime = $startdatetemp.tostring("yyyy-MM-ddTHH:mm:ss.fffZ")
+
  
 #Run the message trace
 $messagetrace = Get-MessageTrace -EndDate $startTime  -startdate $storedTime

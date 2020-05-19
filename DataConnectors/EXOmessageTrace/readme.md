@@ -7,20 +7,20 @@ The easiest way is via the provided ARM templates:
 #### 1: Deploy via Azure ARM Template
 1.  Deploy the template.
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FDataConnectors%2FOneLogin_Connector%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FDataConnectors%2FEXOmessageTrace%2Fazuredeploy.json" target="_blank">
     <img src="https://aka.ms/deploytoazurebutton""/>    
 </a>
 
 2. Deploy permissions for the function to the Key Vault.
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FDataConnectors%2FOneLogin_Connector%2Fazuredeploy_kv.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FDataConnectors%2FEXOmessageTrace%2Fazuredeploy_kv.json" target="_blank">
     <img src="https://aka.ms/deploytoazurebutton""/>
 </a>
 
 Alternatively you can deploy the elements manually.
 #### 2: Deploy via VS Code
 Note: You will need to prepare VS code for Azure function development.  See https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-powershell#prerequisites
-1. Download the [Zip](https://github.com/Yaniv-Shasha/Sentinel/tree/master/DataConnectors/OneLogin_Connector/OneLogin_logs_template.zip?raw=true) file of the Azure Funciton app from Github.
+1. Download the [Zip](https://github.com/Yaniv-Shasha/Sentinel/blob/master/DataConnectors/EXOmessageTrace/MessageTrace_Logs_template.zip?raw=true) file of the Azure Funciton app from Github.
 2. Extract to a location on your local host.
 3. Open VS Code.
 4. Click File -> Open Folder.

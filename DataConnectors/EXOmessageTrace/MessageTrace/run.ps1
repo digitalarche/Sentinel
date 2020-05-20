@@ -86,14 +86,13 @@ if ($session) {Import-PSSession $session -CommandName Get-MessageTrace  -AllowCl
 $tracker = "D:\home\timetracker.log" # change to location of choise this is the root.
 
 
-#$startTime = Get-date -format "yyyy-MM-ddTHH:mm:ss.fffZ"
- 
-#After first run remark the configured date 
-#$storedTime = Get-content $Tracker
+# Get the current universal time in the default string format
+$currentUTCtime = (Get-Date).ToUniversalTime()
 
-#$startdatetemp =(Get-Date).adddays(-12)
-#$storedTime = $startdatetemp.tostring("yyyy-MM-ddTHH:mm:ss.fffZ")
-
+# The 'IsPastDue' porperty is 'true' when the current function invocation is later than scheduled.
+if ($Timer.IsPastDue) {
+    Write-Host "PowerShell timer is running late!"
+}
 
 #add last run time to blob file to ensure no missed packages
 $endTime = $currentUTCtime | Get-Date -Format yyyy-MM-ddThh:mm:ss

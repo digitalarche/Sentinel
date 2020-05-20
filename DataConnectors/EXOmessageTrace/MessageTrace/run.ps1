@@ -86,17 +86,40 @@ if ($session) {Import-PSSession $session -CommandName Get-MessageTrace  -AllowCl
 $tracker = "D:\home\timetracker.log" # change to location of choise this is the root.
 
 
-$startTime = Get-date -format "yyyy-MM-ddTHH:mm:ss.fffZ"
+#$startTime = Get-date -format "yyyy-MM-ddTHH:mm:ss.fffZ"
  
 #After first run remark the configured date 
 #$storedTime = Get-content $Tracker
 
-$startdatetemp =(Get-Date).adddays(-12)
-$storedTime = $startdatetemp.tostring("yyyy-MM-ddTHH:mm:ss.fffZ")
+#$startdatetemp =(Get-Date).adddays(-12)
+#$storedTime = $startdatetemp.tostring("yyyy-MM-ddTHH:mm:ss.fffZ")
 
+
+#add last run time to blob file to ensure no missed packages
+$endTime = $currentUTCtime | Get-Date -Format yyyy-MM-ddThh:mm:ss
+$azstoragestring = $Env:WEBSITE_CONTENTAZUREFILECONNECTIONSTRING
+$Context = New-AzStorageContext -ConnectionString $azstoragestring
+if((Get-AzStorageContainer -Context $Context).Name -contains "lastlog"){
+    #Set Container
+    $Blob = Get-AzStorageBlob -Context $Context -Container (Get-AzStorageContainer -Name "lastlog" -Context $Context).Name -Blob "lastlog.log"
+    $lastlogTime = $blob.ICloudBlob.DownloadText()
+    $startTime = $lastlogTime | Get-Date -Format yyyy-MM-ddThh:mm:ss
+    $endTime | Out-File "$env:TEMP\lastlog.log"
+    Set-AzStorageBlobContent -file "$env:TEMP\lastlog.log" -Container (Get-AzStorageContainer -Name "lastlog" -Context $Context).Name -Context $Context -Force
+}
+else {
+    #create container
+    $azStorageContainer = New-AzStorageContainer -Name "lastlog" -Context $Context
+    $endTime | Out-File "$env:TEMP\lastlog.log"
+    Set-AzStorageBlobContent -file "$env:TEMP\lastlog.log" -Container $azStorageContainer.name -Context $Context -Force
+    $startTime = $currentUTCtime.AddSeconds(-300) | Get-Date -Format yyyy-MM-ddThh:mm:ss
+}
+$startTime
+$endTime
+$lastlogTime
  
 #Run the message trace
-$messagetrace = Get-MessageTrace -EndDate $startTime  -startdate $storedTime
+$messagetrace = Get-MessageTrace -EndDate $endTime  -startdate $startTime
  
 #Store the information in loganalytics
 $messagetrace.count

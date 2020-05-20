@@ -146,8 +146,6 @@ $i = 0
                                    
                                     }   
  
-#Update stored time and remove session
-$storedTime = $startTime
-out-file -FilePath $Tracker -NoNewline -InputObject (get-date $storedTime).AddMilliseconds(1).ToString("yyyy-MM-ddTHH:mm:ss.fffZ") 
+#remove session
 remove-PSSession $session                          
  

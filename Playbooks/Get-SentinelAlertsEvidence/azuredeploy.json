@@ -1116,20 +1116,15 @@
                                     "type": "ApiConnection",
                                     "inputs": {
                                         "body": {
-                                            "ContentData": "@{base64(body('Parse_JSON_3'))}",
-                                            "Properties": {
-                                                "Alert": "@{triggerBody()?['AlertDisplayName']}",
-                                                "AlertEntites": "@{triggerBody()?['Entities']}",
-                                                "AlertsDescription": "@{triggerBody()?['Description']}"
-                                            }
+                                            "ContentData": "@{base64(concat('{','\n','\"body\":\"',body('Parse_JSON_3'),'\",','\n','  \"Alert\": \"',triggerBody()?['AlertDisplayName'],'\",','\n','  \"AlertEntites\": \"',triggerBody()?['Entities'],'\",','\n','  \"AlertsDescription\": \"',triggerBody()?['Description'],'\"','\n','}'))}"
                                         },
                                         "host": {
                                             "connection": {
-                                                "name": "@parameters('$connections')['eventhubs-1']['connectionId']"
+                                                "name": "@parameters('$connections')['eventhubs_1']['connectionId']"
                                             }
                                         },
                                         "method": "post",
-                                        "path": "/@{encodeURIComponent('')}/events"
+                                        "path": "/@{encodeURIComponent('evidence')}/events"
                                     }
                                 }
                             },
@@ -2150,7 +2145,7 @@
                                             }
                                         }
                                     },
-                                    "Send_event_2": {
+                                   "Send_event_2": {
                                         "runAfter": {
                                             "Parse_JSON_4": [
                                                 "Succeeded"
@@ -2159,20 +2154,15 @@
                                         "type": "ApiConnection",
                                         "inputs": {
                                             "body": {
-                                                "ContentData": "@{base64(body('Parse_JSON_4'))}",
-                                                "Properties": {
-                                                    "Alert": "@{triggerBody()?['AlertDisplayName']}",
-                                                    "AlertEntites": "@{triggerBody()?['Entities']}",
-                                                    "AlertsDescription": "@{triggerBody()?['Description']}"
-                                                }
+                                                "ContentData": "@{base64(concat('{','\n','\"body\":\"',body('Parse_JSON_4'),'\",','\n','  \"Alert\": \"',triggerBody()?['AlertDisplayName'],'\",','\n','  \"AlertEntites\": \"',triggerBody()?['Entities'],'\",','\n','  \"AlertsDescription\": \"',triggerBody()?['Description'],'\"','\n','}'))}"
                                             },
                                             "host": {
                                                 "connection": {
-                                                    "name": "@parameters('$connections')['eventhubs-1']['connectionId']"
+                                                    "name": "@parameters('$connections')['eventhubs_1']['connectionId']"
                                                 }
                                             },
                                             "method": "post",
-                                            "path": "/@{encodeURIComponent('')}/events"
+                                            "path": "/@{encodeURIComponent('evidence')}/events"
                                         }
                                     }
                                 }

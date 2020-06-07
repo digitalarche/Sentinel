@@ -1,8 +1,17 @@
 # Get-SentinelAlertsEvidence
 
-This playbook will collect sentinel incident evidence (aka 'Events') and send them and the alerts to EventHub. 3rd party SIEM can connect to the above EventHub and save this data to farther analysis.
-Author": Yaniv Shasha
+This playbook will Logic will automatically attach alert evidence from Azure Sentinel alerts and send them to an Event Hub that can be consumed by a 3rd party SIEM solution.
 
+
+Author: Yaniv Shasha
+
+Deploy the solution
+1.	Create an Event Hub using the article "Create an event hub using Azure portal" <br>
+https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create  or use an existing Event Hub.
+2.	Go to the Playbook GitHub page.<br>
+3.	Press the “deploy to azure” button.<br>
+4.	Once the playbook is deployed, Modify both “Run query and list results” actions (3) and point them to your Azure sentinel workspace.<br>
+5.	Next configure the “send event” actions to use your Event Hub.<br>
 
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FPlaybooks%2FGet-SentinelAlertsEvidence%2Fazuredeploy.json" target="_blank">

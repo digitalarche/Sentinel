@@ -26,7 +26,7 @@
     "variables": {
         "azuremonitorlogs": "[concat('azuremonitorlogs-', parameters('PlaybookName'))]",
         "azuresentinel": "[concat('azuresentinel-', parameters('PlaybookName'))]",
-        "eventhubs_1": "[concat('eventhubs_1-', parameters('PlaybookName'))]"
+        "eventhubs": "[concat('eventhubs-', parameters('PlaybookName'))]"
 
     },
     "resources": [
@@ -59,7 +59,7 @@
         {
             "type": "Microsoft.Web/connections",
             "apiVersion": "2016-06-01",
-            "name": "[variables('eventhubs_1')]",
+            "name": "[variables('eventhubs')]",
             "location": "[resourceGroup().location]",
             "properties": {
              "displayName": "[parameters('UserName')]",
@@ -80,7 +80,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Web/connections', variables('azuresentinel'))]",
                 "[resourceId('Microsoft.Web/connections', variables('azuremonitorlogs'))]",
-                "[resourceId('Microsoft.Web/connections', variables('eventhubs_1'))]"
+                "[resourceId('Microsoft.Web/connections', variables('eventhubs'))]"
             ],
             "properties": {
                 "state": "Enabled",
@@ -102,7 +102,7 @@
                                 },
                                 "host": {
                                     "connection": {
-                                        "name": "@parameters('$connections')['azuresentinel_1']['connectionId']"
+                                        "name": "@parameters('$connections')['azuresentinel']['connectionId']"
                                     }
                                 },
                                 "path": "/subscribe"
@@ -1167,7 +1167,7 @@
                                 "body": "set query_datetimescope_column = \"TimeGenerated\";\nset query_datetimescope_from = datetime(@{body('Parse_JSON_2')?['Query Start Time UTC']});\nset query_datetimescope_to = datetime(@{body('Parse_JSON_2')?['Query End Time UTC']});\n@{body('Parse_JSON_2')?['Query']} | take 20",
                                 "host": {
                                     "connection": {
-                                        "name": "@parameters('$connections')['azuremonitorlogs_1']['connectionId']"
+                                        "name": "@parameters('$connections')['azuremonitorlogs']['connectionId']"
                                     }
                                 },
                                 "method": "post",
@@ -1194,7 +1194,7 @@
                                 },
                                 "host": {
                                     "connection": {
-                                        "name": "@parameters('$connections')['eventhubs_3']['connectionId']"
+                                        "name": "@parameters('$connections')['eventhubs']['connectionId']"
                                     }
                                 },
                                 "method": "post",
@@ -1216,9 +1216,9 @@
                                 "connectionName": "[variables('azuremonitorlogs')]",
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuremonitorlogs')]"
                             },
-                            "eventhubs_1": {
-                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('eventhubs_1'))]",
-                                "connectionName": "[variables('eventhubs_1')]",
+                            "eventhubs": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('eventhubs'))]",
+                                "connectionName": "[variables('eventhubs')]",
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/eventhubs')]"
                             }
                         }

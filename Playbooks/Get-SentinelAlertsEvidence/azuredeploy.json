@@ -9,6 +9,18 @@
         "PlaybookName": {
             "defaultValue": "Get-SentinelAlertsEvidence",
             "type": "String"
+        },
+        "UserName": {
+            "defaultValue": "<username>@<domain>",
+            "type": "string"
+        },
+        "AzureSentinelLogAnalyticsWorkspaceName": {
+        "defaultValue": "yourAzureSentinelworkspacename",
+        "type": "string"
+        },
+        "AzureSentinelLogAnalyticsWorkspaceResourceGroupName": {
+        "defaultValue": "yourAzureSentinelworkspaceRGname",
+        "type": "string"
         }
     },
     "variables": {
@@ -24,6 +36,7 @@
             "name": "[variables('azuresentinel')]",
             "location": "[resourceGroup().location]",
             "properties": {
+                           "displayName": "[parameters('UserName')]",
                 "customParameterValues": {},
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuresentinel')]"
@@ -36,6 +49,7 @@
             "name": "[variables('azuremonitorlogs')]",
             "location": "[resourceGroup().location]",
             "properties": {
+                           "displayName": "[parameters('UserName')]",
                 "customParameterValues": {},
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuremonitorlogs')]"
@@ -48,6 +62,7 @@
             "name": "[variables('eventhubs_1')]",
             "location": "[resourceGroup().location]",
             "properties": {
+             "displayName": "[parameters('UserName')]",
                 "customParameterValues": {},
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/eventhubs')]"
@@ -1099,10 +1114,10 @@
                                         "method": "post",
                                         "path": "/queryData",
                                         "queries": {
-                                            "resourcegroups": "",
-                                            "resourcename": "",
-                                            "resourcetype": "",
-                                            "subscriptions": "",
+                                            "resourcegroups": "[parameters('AzureSentinelLogAnalyticsWorkspaceResourceGroupName')]",
+                                            "resourcename": "[parameters('AzureSentinelLogAnalyticsWorkspaceName')]",
+                                            "resourcetype": "Log Analytics Workspace",
+                                            "subscriptions": "[subscription().subscriptionId]",
                                             "timerange": "@{body('Parse_JSON_2')?['body']?['Query Period']}  | take 10"
                                         }
                                     }
@@ -2137,10 +2152,10 @@
                                             "method": "post",
                                             "path": "/queryData",
                                             "queries": {
-                                                "resourcegroups": "",
-                                                "resourcename": "",
-                                                "resourcetype": "",
-                                                "subscriptions": "",
+                                               "resourcegroups": "[parameters('AzureSentinelLogAnalyticsWorkspaceResourceGroupName')]",
+                                            "resourcename": "[parameters('AzureSentinelLogAnalyticsWorkspaceName')]",
+                                                "resourcetype": "Log Analytics Workspace",
+                                            "subscriptions": "[subscription().subscriptionId]",
                                                 "timerange": "@{body('Parse_JSON_2')?['Query Period']}"
                                             }
                                         }

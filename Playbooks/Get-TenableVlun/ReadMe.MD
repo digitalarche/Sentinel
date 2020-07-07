@@ -25,3 +25,5 @@ Give the AAD app the relevant permission as describe here https://docs.microsoft
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Playbooks/Get-MDATP-TVMData/pics/1.png
 )<br><br>
+
+'https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Playbooks/Get-TenableVlun/azuredeploy.json'

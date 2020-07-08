@@ -10,21 +10,3 @@ This playbook will get vulnerability data from tenanble.io instance and sen
     <img src="https://aka.ms/deploytoazurebutton"/>
     
 </a>
-
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FPlaybooks%2FGet-TenableVlun%2Fazuredeploy.json" target="_blank">
-    <img src="https://aka.ms/deploytoazurebutton"/>
-</a>
-
-<a href="https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FPlaybooks%2FGet-TenableVlun%2Fazuredeploy.json" target="_blank">
-<img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazuregov.png"/>
-</a>
-
-Authentication part:
-
-- You will need to generate API key from tenable.io 
-- on the log analytics write section, the user that authenticated on this action need a write access to Sentinel workspace
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FPlaybooks%2FClose-MDAP-Alert%2Fazuredeploy.json" target="_blank">
-    <img src="https://aka.ms/deploytoazurebutton"/>
-</a>

@@ -18,9 +18,3 @@ Authentication part:
 - You will need to generate API key from tenable.io 
 - on the log analytics write section, the user that authenticated on this action need a write access to Sentinel workspace
 
-Give the AAD app the relevant permission as describe here https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/get-discovered-vulnerabilities
-
-
-
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Playbooks/Get-MDATP-TVMData/pics/1.png
-)<br><br>

@@ -144,7 +144,7 @@ o	Host -> ImpactedGroup (Click **Add**)<br>
 1.	Navigate back to **Incidents**
 2.	Locate your incident standard**XX** – Failed Logon (where “XX” is the number you have been assigned at the start of class)
 3.	Click your Incident. Then Click the **Investigate** button on the lower right-hand side
-4.	Within the Investigation window hover over the IP Address node and select **Related Alerts** to bring in additional alert data associated to that IP address.<br>
+4.	Within the Investigation window hover over the IP Address or user account node and select **Related Alerts** to bring in additional alert data associated to that IP address.<br>
 **Note**: Data will vary based on the other events occurring in the lab. The IP address will likely be different and the number of related alerts will depend on other users in the lab. This is how Investigation within Sentinel is intended to function.
 
 
@@ -152,7 +152,7 @@ o	Host -> ImpactedGroup (Click **Add**)<br>
 )<br><br>
 
 5.	You may explore other available options in the investigation graph. However, depending upon the data available at the time, some options in the graph will be grayed out.
-6.	Navigate back to Azure Sentinel -> Incidents and locate your incident Admin**XX** – Admin Group Change
+6.	Navigate back to Azure Sentinel -> Incidents and locate your incident **AdminXX – Admin Group Change**
 7.	Click on your incident and Click the **Investigate** button
 8.	Within the investigation window you can see the User that was added to the group, and the Group that they were added to.
 9.	Hover over the User account victim4 and click **Related alerts** to see additional alerts related to this Admin group change involving this account.

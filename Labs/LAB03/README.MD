@@ -111,7 +111,7 @@ In this task, you will learn to proactively investigate using Sentinel Dashboard
 )<br><br>
 
 
-3.	We can look into to the Insecure LDAP section of the page (directly below the Overview) for more insightful data representations.<br>
+3.	We can look into to the Insecure LDAP section of the page (press on the **LDAP Tab**) for more insightful data representations.<br>
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB03/screenshots/unsignedLDAP.png
 )<br><br>

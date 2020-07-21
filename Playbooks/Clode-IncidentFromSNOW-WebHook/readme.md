@@ -6,7 +6,7 @@ This playbook will listen to a close incident events from service now and close 
 
 
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FPlaybooks%2FClode-IncidentFromSNOW-WebHook%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYaniv-Shasha%2FSentinel%2Fmaster%2FPlaybooks%2FClode-IncidentFromSNOW-WebHook%2FAzureDeploy.json" target="_blank">
     <img src="https://aka.ms/deploytoazurebutton"/>
     
 </a>
@@ -16,3 +16,4 @@ This playbook will listen to a close incident events from service now and close 
     
 </a>
 
+https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Playbooks/Clode-IncidentFromSNOW-WebHook/AzureDeploy.json

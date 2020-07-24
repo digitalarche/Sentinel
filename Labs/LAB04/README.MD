@@ -9,7 +9,7 @@ As in Task 1, we will be proactively hunting for Indicators of Attack in Sentine
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt01.PNG
 )<br><br>
 
-3.	Examine the Queries in the middle pane. These are built-in KQL queries provided to help you hunt for adversaries in your environment. Pay attention to the description and also special attention to the Tactics column. You may learn more about a particular tactic by mousing over it for a description. This column helps you understand which part of the attacker kill chain you may insert yourself in with the query. For example, by examining Hosts with new logons, you may be able to detect Lateral Movement in the environment.
+3.	Examine the Queries in the middle pane. These are built-in KQL queries provided to help you hunt for adversaries in your environment. Pay attention to the description and also special attention to the Tactics column. You may learn more about a particular tactic by moussing over it for a description. This column helps you understand which part of the attacker kill chain you may insert yourself in with the query. For example, by examining **Hosts with new logons**, you may be able to detect Lateral Movement in the environment.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt02.PNG
 )<br><br>
@@ -19,14 +19,14 @@ As in Task 1, we will be proactively hunting for Indicators of Attack in Sentine
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt03.PNG
 )<br><br>
 
-6.	Look at the Results column. Note that several of these queries have returned results. These require further investigation. You will want to help your customers pay special investigative attention to the results of queries like New processes observed in last 24 hours, and uncommon processes – bottom 5%. These can be indicators of compromise that are often missed.
+6.	Look at the Results column. Note that several of these queries have returned results. These require further investigation. You will want to help your customers pay special investigative attention to the results of queries like **New processes observed in last 24 hours**, and **uncommon processes – bottom 5%**. These can be indicators of compromise that are often missed.
 
 **Task 2. Run Several Single Hunting Queries and Examine the Output in Detail**<br>
 
 In this Task, we will run several single queries to hunt for indicators of compromise.<br>
 
 **Step 1:** Run the New processes observed Query and Examine the Output<br>
-1.	Click on the query New processes observed in the last 24 hours.
+1.	Click on the query **New processes observed in the last 24 hours**.
 2.	This brings up information about this Hunting query on the right side of the screen.
 
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt04.PNG
@@ -38,7 +38,7 @@ In this Task, we will run several single queries to hunt for indicators of compr
 )<br><br>
 
 5.	Briefly examine the table of results. Notice that it features HostCount  and FileName columns of information. From the results, we can see that there have been a number of new processes launched across the estate in the last 24 hours.
-6.	This may be a sign of normal, benign programs being run. However, in normally stable environments, these new processes could provide an indication of an unauthorized/malicious binary that has been installed and run. Look closely at the results as shown below. 
+6.	This may be a sign of normal, benign programs being run. However, in normally stable environments, these new processes could provide an indication of an unauthorized/malicious binary that has been installed and run. Look closely at the results as shown below.<br>(**The results on this phase may looks differently on your side!** )
 ![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt06.PNG
 )<br><br>
 
@@ -94,9 +94,9 @@ SecurityEvent
 ```
 4.	Examine the output. Here you would hunt for any Accounts that you would not expect to log onto DCs. For example, an account that did not belong to a member of the IT staff (and specifically an Active Directory administrator) would throw a red flag to take action. You could also additionally hunt for discrepancies in logon times, for example, by modifying the query in various ways.
 
-5.	In the query results, do you see any accounts that you would flag with your customer? In the example below, we see an account called victim7 having logged into DC03. That is definitely an indicator of compromise. We would need, in this case, to take action against both the account and potentially inside of Active Directory. We could even be in an incident response type of scenario.
+5.	In the query results, do you see any accounts that you would flag with your customer? In the example below, we see an account called briandel having logged into DC01. That is definitely an indicator of compromise. We would need, in this case, to take action against both the account and potentially inside of Active Directory. We could even be in an incident response type of scenario.
 
-![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/hunt13.PNG
+![alt text](https://raw.githubusercontent.com/Yaniv-Shasha/Sentinel/master/Labs/LAB04/screenshots/brain.png
 )<br><br>
 
 6.	At the top of the page, click **Azure Sentinel – Hunting** to return to the Hunting pane.
@@ -121,7 +121,7 @@ In this Task, you will pick up where the Insecure Protocols dashboard left off. 
 
 ```powershell
 SigninLogs
-| where ClientAppUsed in ('Other clients; Older office clients', 'Other clients', 'Other clients; IMAP', 'Other clients; POP', 'Other clients; SMTP')
+| where ClientAppUsed in ('Other clients; Older office clients', 'Other clients', 'Other clients; IMAP', 'Other clients; POP', 'Authenticated SMTP')
 | where TimeGenerated >ago(30d)
 | summarize count() by UserPrincipalName, IPAddress, ClientAppUsed
 ```

@@ -1,0 +1,343 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "metadata":{
+        "comments": "This playbook will ingest MDATP TVM data from all clients computer.",
+        "Author": "Yaniv Shasha"
+        },
+    "parameters": {
+        "PlaybookName": {
+            "defaultValue": "Get-MDATP-TVMData",
+            "type": "String"
+        }
+    },
+    "variables": {
+        "AzureLAConnectionName": "[concat('azureloganalyticsdatacollector-', parameters('PlaybookName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[variables('AzureLAConnectionName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "customParameterValues": {},
+                "api": {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azureloganalyticsdatacollector')]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('PlaybookName')]",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "LogicAppsCategory": "security"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', variables('AzureLAConnectionName'))]"
+            ],
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "frequency": "Day",
+                                "interval": 1
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "For_each": {
+                            "foreach": "@body('Parse_JSON_3')?['value']",
+                            "actions": {
+                                "For_each_2": {
+                                    "foreach": "@body('Parse_JSON')?['value']",
+                                    "actions": {
+                                        "Send_Data": {
+                                            "runAfter": {},
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "body": "{\n\"id\":\"@{items('For_each_2')?['id']}\",\n\"description\":\"@{items('For_each_2')?['description']}\",\n\"host\":\"@{items('For_each')?['computerDnsName']}\",\n\"MachineID\":\"@{items('For_each')?['id']}\",\n\"cvssV3\":\"@{items('For_each_2')?['cvssV3']}\",\n\"publishedOn\":\"@{items('For_each_2')?['publishedOn']}\"\n}",
+                                                "headers": {
+                                                    "Log-Type": "TVM_Temp"
+                                                },
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['azureloganalyticsdatacollector']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "post",
+                                                "path": "/api/logs"
+                                            }
+                                        }
+                                    },
+                                    "runAfter": {
+                                        "Parse_JSON": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "Foreach"
+                                },
+                                "Get_vulnerabilities_per_Client": {
+                                    "runAfter": {},
+                                    "type": "Http",
+                                    "inputs": {
+                                        "authentication": {
+                                            "audience": "",
+                                            "clientId": "",
+                                            "secret": "",
+                                            "tenant": "",
+                                            "type": "ActiveDirectoryOAuth"
+                                        },
+                                        "method": "GET",
+                                        "uri": "https://api.securitycenter.windows.com/api/machines/@{items('For_each')?['id']}/vulnerabilities?$filter=updatedOn+gt+@{variables('TimeLastRun')}"
+                                    }
+                                },
+                                "Parse_JSON": {
+                                    "runAfter": {
+                                        "Get_vulnerabilities_per_Client": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "ParseJson",
+                                    "inputs": {
+                                        "content": "@body('Get_vulnerabilities_per_Client')",
+                                        "schema": {
+                                            "properties": {
+                                                "@@odata.context": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "items": {
+                                                        "properties": {
+                                                            "cvssV3": {
+                                                                "type": "number"
+                                                            },
+                                                            "description": {
+                                                                "type": "string"
+                                                            },
+                                                            "exploitInKit": {
+                                                                "type": "boolean"
+                                                            },
+                                                            "exploitTypes": {
+                                                                "type": "array"
+                                                            },
+                                                            "exploitUris": {
+                                                                "type": "array"
+                                                            },
+                                                            "exploitVerified": {
+                                                                "type": "boolean"
+                                                            },
+                                                            "exposedMachines": {
+                                                                "type": "integer"
+                                                            },
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "publicExploit": {
+                                                                "type": "boolean"
+                                                            },
+                                                            "publishedOn": {
+                                                                "type": "string"
+                                                            },
+                                                            "severity": {
+                                                                "type": "string"
+                                                            },
+                                                            "updatedOn": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "id",
+                                                            "name",
+                                                            "description",
+                                                            "severity",
+                                                            "cvssV3",
+                                                            "exposedMachines",
+                                                            "publishedOn",
+                                                            "updatedOn",
+                                                            "publicExploit",
+                                                            "exploitVerified",
+                                                            "exploitInKit",
+                                                            "exploitTypes",
+                                                            "exploitUris"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "Parse_JSON_3": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        },
+                        "Initialize_variable": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "TimeLastRun",
+                                        "type": "string",
+                                        "value": "@{addMinutes(utcNow(),-1440)}"
+                                    }
+                                ]
+                            }
+                        },
+                        "List_MDATP_Clients": {
+                            "runAfter": {
+                                "Initialize_variable": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "authentication": {
+                                    "audience": "",
+                                    "clientId": "",
+                                    "secret": "",
+                                    "tenant": "",
+                                    "type": "ActiveDirectoryOAuth"
+                                },
+                                "method": "GET",
+                                "uri": "https://api.securitycenter.windows.com/api/machines"
+                            }
+                        },
+                        "Parse_JSON_3": {
+                            "runAfter": {
+                                "List_MDATP_Clients": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                                "content": "@body('List_MDATP_Clients')",
+                                "schema": {
+                                    "properties": {
+                                        "@@odata.context": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "items": {
+                                                "properties": {
+                                                    "aadDeviceId": {},
+                                                    "agentVersion": {
+                                                        "type": "string"
+                                                    },
+                                                    "computerDnsName": {
+                                                        "type": "string"
+                                                    },
+                                                    "exposureLevel": {
+                                                        "type": "string"
+                                                    },
+                                                    "firstSeen": {
+                                                        "type": "string"
+                                                    },
+                                                    "healthStatus": {
+                                                        "type": "string"
+                                                    },
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastExternalIpAddress": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastIpAddress": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastSeen": {
+                                                        "type": "string"
+                                                    },
+                                                    "machineTags": {
+                                                        "type": "array"
+                                                    },
+                                                    "osBuild": {
+                                                        "type": "integer"
+                                                    },
+                                                    "osPlatform": {
+                                                        "type": "string"
+                                                    },
+                                                    "osProcessor": {
+                                                        "type": "string"
+                                                    },
+                                                    "osVersion": {},
+                                                    "rbacGroupId": {
+                                                        "type": "integer"
+                                                    },
+                                                    "rbacGroupName": {},
+                                                    "riskScore": {
+                                                        "type": "string"
+                                                    },
+                                                    "version": {}
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "computerDnsName",
+                                                    "firstSeen",
+                                                    "lastSeen",
+                                                    "osPlatform",
+                                                    "osVersion",
+                                                    "osProcessor",
+                                                    "version",
+                                                    "lastIpAddress",
+                                                    "lastExternalIpAddress",
+                                                    "agentVersion",
+                                                    "osBuild",
+                                                    "healthStatus",
+                                                    "rbacGroupId",
+                                                    "rbacGroupName",
+                                                    "riskScore",
+                                                    "exposureLevel",
+                                                    "aadDeviceId",
+                                                    "machineTags"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "azureloganalyticsdatacollector": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('AzureLAConnectionName'))]",
+                                "connectionName": "[variables('AzureLAConnectionName')]",
+                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azureloganalyticsdatacollector')]"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

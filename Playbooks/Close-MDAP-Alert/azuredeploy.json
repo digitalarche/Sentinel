@@ -1,0 +1,633 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+        "metadata":{
+        "comments": "This playbook will close Query closed Sentinel Incidents and will dismiss the corresponding MDATP Alert",
+        "author": "Yaniv Shasha"
+    },
+    "parameters": {
+        "PlaybookName": {
+            "defaultValue": "Close-MDATPAlert",
+            "type": "String"
+        }
+    },
+    "variables": {
+        "MDATPConnectionName": "[concat('wdatp-', parameters('PlaybookName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[variables('MDATPConnectionName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "customParameterValues": {},
+                "api": {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/wdatp')]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('PlaybookName')]",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "LogicAppsCategory": "security"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', variables('MDATPConnectionName'))]"
+            ],
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "frequency": "Hour",
+                                "interval": 1
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "For_each": {
+                            "foreach": "@body('Parse_JSON')?['value']",
+                            "actions": {
+                                "Condition": {
+                                    "actions": {
+                                        "Alerts_-_Update_alert_2": {
+                                            "runAfter": {
+                                                "Parse_JSON_5": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "body": {
+                                                    "classification": "TruePositive",
+                                                    "determination": "Other",
+                                                    "status": "Resolved"
+                                                },
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['wdatp']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "patch",
+                                                "path": "/api/alerts/@{encodeURIComponent(body('Parse_JSON_5')?['properties']?['providerAlertId'])}"
+                                            }
+                                        },
+                                        "Get_SystemAlertID_base_on_Incident_": {
+                                            "runAfter": {},
+                                            "type": "Http",
+                                            "inputs": {
+                                                "authentication": {
+                                                    "type": "ManagedServiceIdentity"
+                                                },
+                                                "method": "GET",
+                                                "uri": " https://management.azure.com/subscriptions/@{variables('subscription')}/resourceGroups/@{variables('RG')}/providers/Microsoft.OperationalInsights/workspaces/@{variables('Workspace')}/providers/Microsoft.SecurityInsights/incidents/@{body('Parse_JSON')['value'][0]['name']}/relations?api-version=2019-01-01-preview"
+                                            }
+                                        },
+                                        "HTTP_4": {
+                                            "runAfter": {
+                                                "Parse_JSON_4": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "Http",
+                                            "inputs": {
+                                                "authentication": {
+                                                    "type": "ManagedServiceIdentity"
+                                                },
+                                                "method": "GET",
+                                                "uri": "https://management.azure.com/subscriptions/@{variables('subscription')}/resourceGroups/@{variables('RG')}/providers/Microsoft.OperationalInsights/workspaces/@{variables('Workspace')}/providers/Microsoft.SecurityInsights/entities/@{body('Parse_JSON_4')['value'][0]['properties']['relatedResourceName']}?api-version=2019-01-01-preview"
+                                            }
+                                        },
+                                        "Parse_JSON_4": {
+                                            "runAfter": {
+                                                "Get_SystemAlertID_base_on_Incident_": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "ParseJson",
+                                            "inputs": {
+                                                "content": "@body('Get_SystemAlertID_base_on_Incident_')",
+                                                "schema": {
+                                                    "properties": {
+                                                        "body": {
+                                                            "properties": {
+                                                                "value": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "properties": {
+                                                                                "properties": {
+                                                                                    "relatedResourceId": {
+                                                                                        "type": "string"
+                                                                                    },
+                                                                                    "relatedResourceKind": {
+                                                                                        "type": "string"
+                                                                                    },
+                                                                                    "relatedResourceName": {
+                                                                                        "type": "string"
+                                                                                    },
+                                                                                    "relatedResourceType": {
+                                                                                        "type": "string"
+                                                                                    }
+                                                                                },
+                                                                                "type": "object"
+                                                                            },
+                                                                            "type": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "id",
+                                                                            "name",
+                                                                            "type",
+                                                                            "properties"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "headers": {
+                                                            "properties": {
+                                                                "Cache-Control": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Content-Length": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Content-Type": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Date": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Expires": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Pragma": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Server": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Strict-Transport-Security": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Transfer-Encoding": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Vary": {
+                                                                    "type": "string"
+                                                                },
+                                                                "X-Content-Type-Options": {
+                                                                    "type": "string"
+                                                                },
+                                                                "x-ms-correlation-request-id": {
+                                                                    "type": "string"
+                                                                },
+                                                                "x-ms-ratelimit-remaining-subscription-reads": {
+                                                                    "type": "string"
+                                                                },
+                                                                "x-ms-request-id": {
+                                                                    "type": "string"
+                                                                },
+                                                                "x-ms-routing-request-id": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "statusCode": {
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "Parse_JSON_5": {
+                                            "runAfter": {
+                                                "HTTP_4": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "ParseJson",
+                                            "inputs": {
+                                                "content": "@body('HTTP_4')",
+                                                "schema": {
+                                                    "properties": {
+                                                        "body": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "string"
+                                                                },
+                                                                "kind": {
+                                                                    "type": "string"
+                                                                },
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "properties": {
+                                                                    "properties": {
+                                                                        "alertDisplayName": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "alertType": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "compromisedEntity": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "confidenceLevel": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "description": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "endTimeUtc": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "friendlyName": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "processingEndTime": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "productName": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "providerAlertId": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "severity": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "startTimeUtc": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "status": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "systemAlertId": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "tactics": {
+                                                                            "items": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "type": "array"
+                                                                        },
+                                                                        "timeGenerated": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "vendorName": {
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                },
+                                                                "type": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "headers": {
+                                                            "properties": {
+                                                                "Cache-Control": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Content-Length": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Content-Type": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Date": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Expires": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Pragma": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Server": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Strict-Transport-Security": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Transfer-Encoding": {
+                                                                    "type": "string"
+                                                                },
+                                                                "Vary": {
+                                                                    "type": "string"
+                                                                },
+                                                                "X-Content-Type-Options": {
+                                                                    "type": "string"
+                                                                },
+                                                                "x-ms-correlation-request-id": {
+                                                                    "type": "string"
+                                                                },
+                                                                "x-ms-ratelimit-remaining-subscription-reads": {
+                                                                    "type": "string"
+                                                                },
+                                                                "x-ms-request-id": {
+                                                                    "type": "string"
+                                                                },
+                                                                "x-ms-routing-request-id": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "statusCode": {
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "runAfter": {},
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "and": [
+                                                    {
+                                                        "greater": [
+                                                            "@items('For_each')?['properties']?['lastModifiedTimeUtc']",
+                                                            "@variables('TimeLastRun')"
+                                                        ]
+                                                    },
+                                                    {
+                                                        "equals": [
+                                                            "@items('For_each')?['properties']?['additionalData']?['alertsCount']",
+                                                            1
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "type": "If"
+                                }
+                            },
+                            "runAfter": {
+                                "Parse_JSON": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        },
+                        "HTTP": {
+                            "runAfter": {
+                                "Sentinel_Workspace_Name": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "authentication": {
+                                    "type": "ManagedServiceIdentity"
+                                },
+                                "method": "GET",
+                                "uri": "https://management.azure.com/subscriptions/@{variables('subscription')}/resourceGroups/@{variables('RG')}/providers/Microsoft.OperationalInsights/workspaces/@{variables('Workspace')}/providers/Microsoft.SecurityInsights/incidents?api-version=2019-01-01-preview&$filter=properties/additionalData/alertProductNames/any(id: id eq 'Microsoft Defender Advanced Threat Protection') and (properties/status eq 'Closed')"
+                            }
+                        },
+                        "Initialize_Sentinel_RG": {
+                            "runAfter": {
+                                "Initialize_Sentinel_Subscription": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "RG",
+                                        "type": "string",
+                                        "value": ""
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_Sentinel_Subscription": {
+                            "runAfter": {
+                                "Set_Time": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "subscription",
+                                        "type": "string",
+                                        "value": ""
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_Time": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "TimeLastRun",
+                                        "type": "string",
+                                        "value": "null"
+                                    }
+                                ]
+                            }
+                        },
+                        "Parse_JSON": {
+                            "runAfter": {
+                                "HTTP": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                                "content": "@body('HTTP')",
+                                "schema": {
+                                    "properties": {
+                                        "value": {
+                                            "items": {
+                                                "properties": {
+                                                    "etag": {
+                                                        "type": "string"
+                                                    },
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "properties": {
+                                                        "properties": {
+                                                            "additionalData": {
+                                                                "properties": {
+                                                                    "alertProductNames": {
+                                                                        "items": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "type": "array"
+                                                                    },
+                                                                    "alertsCount": {
+                                                                        "type": "integer"
+                                                                    },
+                                                                    "bookmarksCount": {
+                                                                        "type": "integer"
+                                                                    },
+                                                                    "commentsCount": {
+                                                                        "type": "integer"
+                                                                    },
+                                                                    "tactics": {
+                                                                        "type": "array"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "createdTimeUtc": {
+                                                                "type": "string"
+                                                            },
+                                                            "firstActivityTimeGenerated": {
+                                                                "type": "string"
+                                                            },
+                                                            "firstActivityTimeUtc": {
+                                                                "type": "string"
+                                                            },
+                                                            "incidentNumber": {
+                                                                "type": "integer"
+                                                            },
+                                                            "labels": {
+                                                                "type": "array"
+                                                            },
+                                                            "lastActivityTimeGenerated": {
+                                                                "type": "string"
+                                                            },
+                                                            "lastActivityTimeUtc": {
+                                                                "type": "string"
+                                                            },
+                                                            "lastModifiedTimeUtc": {
+                                                                "type": "string"
+                                                            },
+                                                            "owner": {
+                                                                "properties": {
+                                                                    "assignedTo": {},
+                                                                    "email": {},
+                                                                    "objectId": {},
+                                                                    "userPrincipalName": {}
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "relatedAnalyticRuleIds": {
+                                                                "items": {
+                                                                    "type": "string"
+                                                                },
+                                                                "type": "array"
+                                                            },
+                                                            "severity": {
+                                                                "type": "string"
+                                                            },
+                                                            "status": {
+                                                                "type": "string"
+                                                            },
+                                                            "title": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "name",
+                                                    "etag",
+                                                    "type",
+                                                    "properties"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "Sentinel_Workspace_Name": {
+                            "runAfter": {
+                                "Initialize_Sentinel_RG": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "Workspace",
+                                        "type": "string",
+                                        "value": ""
+                                    }
+                                ]
+                            }
+                        },
+                        "Set_Time": {
+                            "runAfter": {
+                                "Initialize_Time": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "SetVariable",
+                            "inputs": {
+                                "name": "TimeLastRun",
+                                "value": "@{addMinutes(utcNow(),-60)}"
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "WDATP": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('MDATPConnectionName'))]",
+                                "connectionName": "[variables('MDATPConnectionName')]",
+                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/wdatp')]"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

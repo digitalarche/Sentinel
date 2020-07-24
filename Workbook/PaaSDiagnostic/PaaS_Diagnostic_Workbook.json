@@ -1,0 +1,2182 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## PaaS Services coverage in Azure Sentinel "
+      },
+      "name": "text - 0"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "value::all"
+        ],
+        "parameters": [
+          {
+            "id": "688dc7cb-bea3-41ae-ae94-32d22e09568c",
+            "version": "KqlParameterItem/1.0",
+            "name": "DefaultWorkspace",
+            "type": 5,
+            "isRequired": true,
+            "value": "value::1",
+            "isHiddenWhenLocked": true,
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.operationalinsights/workspaces": true
+              },
+              "additionalResourceOptions": [
+                "value::1"
+              ]
+            },
+            "resourceType": "microsoft.insights/components"
+          },
+          {
+            "id": "c11b5651-cf86-4865-b23d-9ecc4f16b712",
+            "version": "KqlParameterItem/1.0",
+            "name": "ContextFree",
+            "type": 1,
+            "query": "{\"version\":\"1.0.0\",\"content\":\"\\\"{DefaultWorkspace}\\\"\"}",
+            "isHiddenWhenLocked": true,
+            "queryType": 8
+          },
+          {
+            "id": "bbbc300a-6f91-4b2b-b4b5-842b4bf8577a",
+            "version": "KqlParameterItem/1.0",
+            "name": "Selection",
+            "type": 1,
+            "query": "where type =~ 'microsoft.operationalinsights/workspaces'\r\n| extend match = strcat(\"'\", id, \"'\") =~ \"{DefaultWorkspace:value}\"\r\n| order by match desc, name asc\r\n| take 1\r\n| project value = tostring(pack('sub', subscriptionId, 'rg', resourceGroup, 'ws', id))",
+            "crossComponentResources": [
+              "value::all"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          }
+        ],
+        "style": "above",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources"
+      },
+      "conditionalVisibility": {
+        "parameterName": "_",
+        "comparison": "isEqualTo",
+        "value": "_"
+      },
+      "name": "parameters - 0"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "{Subscriptions}"
+        ],
+        "parameters": [
+          {
+            "id": "1db5ee15-fe52-458b-91d1-7ee39d8c2cd3",
+            "version": "KqlParameterItem/1.0",
+            "name": "Subscriptions",
+            "type": 6,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "summarize by subscriptionId\r\n| project value = strcat('/subscriptions/', subscriptionId), label = subscriptionId, selected = iff(subscriptionId =~ todynamic('{Selection}').sub, true, false)",
+            "crossComponentResources": [
+              "value::all"
+            ],
+            "value": [
+              "/subscriptions/44e4eff8-1fcb-4a22-a7d6-992ac7286382"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": [
+                "value::all"
+              ]
+            },
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "9732eff8-fb57-4cbd-8ade-5ae746f33760",
+            "version": "KqlParameterItem/1.0",
+            "name": "SentinelWorkspace",
+            "type": 5,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "where type =~ 'microsoft.operationalinsights/workspaces'\r\n| summarize by id, name\r\n| project id, selected = iff(id =~ todynamic('{Selection}').ws, true, false)",
+            "crossComponentResources": [
+              "{Subscriptions}"
+            ],
+            "value": [
+              "/subscriptions/44e4eff8-1fcb-4a22-a7d6-992ac7286382/resourceGroups/SOC/providers/Microsoft.OperationalInsights/workspaces/CyberSecurityDemo"
+            ],
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.operationalinsights/workspaces": true
+              },
+              "additionalResourceOptions": [
+                "value::all"
+              ]
+            },
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "d6de19ff-cde4-41c2-9fba-b441312ea5c9",
+            "version": "KqlParameterItem/1.0",
+            "name": "Test",
+            "type": 1,
+            "query": "InsightsMetrics\r\n| where TimeGenerated {TimeRange}\r\n| take 1",
+            "crossComponentResources": [
+              "{Workspaces}"
+            ],
+            "isHiddenWhenLocked": true,
+            "queryType": 0,
+            "resourceType": "microsoft.operationalinsights/workspaces"
+          }
+        ],
+        "style": "above",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources"
+      },
+      "name": "parameters - 2"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "⚠ A specified Sentinel workspace was not selected under `SentinelWorkspace` \r\nYou must select the sentinel workspace on this drop-down\r\n\r\n"
+      },
+      "conditionalVisibility": {
+        "parameterName": "SentinelWorkspace",
+        "comparison": "isEqualTo",
+        "value": ""
+      },
+      "name": "text - 23"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "⚠ A subscription has not yet been selected. Select a subscriptions under the `Subscriptions` \r\nOne of the subscription must be the subscription that host azure Sentinel workspace\r\ndropdown or refresh the workbook."
+      },
+      "conditionalVisibility": {
+        "parameterName": "Subscriptions",
+        "comparison": "isEqualTo"
+      },
+      "name": "text - 22"
+    },
+    {
+      "type": 11,
+      "content": {
+        "version": "LinkItem/1.0",
+        "style": "tabs",
+        "links": [
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "Keyvault",
+            "subTarget": "1",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "ApplicationGateways",
+            "subTarget": "2",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "NSG",
+            "subTarget": "3",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "NetworkWatchers",
+            "subTarget": "4",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "SQLServers",
+            "subTarget": "5",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "WebApp",
+            "subTarget": "6",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "LogicApp",
+            "subTarget": "7",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "EventHub",
+            "subTarget": "8",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "AzureFW",
+            "subTarget": "9",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "PublicIP",
+            "subTarget": "10",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "FrontDoor",
+            "subTarget": "11",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "DataFactory",
+            "subTarget": "12",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "DataLakeStore",
+            "subTarget": "13",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "LoadBalancers",
+            "subTarget": "14",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "MYSQL",
+            "subTarget": "15",
+            "style": "link"
+          },
+          {
+            "cellValue": "Tab",
+            "linkTarget": "parameter",
+            "linkLabel": "ACR",
+            "subTarget": "16",
+            "style": "link"
+          }
+        ]
+      },
+      "name": "links - 1"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": []
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "name": "KeyVault"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.network/applicationgateways\"\r\n | project id, name",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics \r\n | where ResourceId contains \"applicationgateways\"\r\n | distinct  ResourceId",
+              "size": 0,
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "8888"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0aa\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0aa\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0aa\"},{\"originalName\":\"[query - 1].ResourceId\",\"mergedName\":\"ResourceId\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0aa\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "2"
+      },
+      "name": "ApplicationGateways"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "loadType": "always",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.keyvault/vaults\"\r\n | project id , name",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where _ResourceId  has \"/Microsoft.KeyVault/\" \r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0c1\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0c1\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0c1\"},{\"originalName\":\"[query - 1]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0c1\"}]}",
+              "size": 0,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    },
+                    "numberFormat": {
+                      "unit": 0,
+                      "options": {
+                        "style": "decimal"
+                      }
+                    }
+                  }
+                ],
+                "filter": true,
+                "sortBy": [
+                  {
+                    "itemKey": "$gen_thresholds__ResourceId_2",
+                    "sortOrder": 2
+                  }
+                ],
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              },
+              "sortBy": [
+                {
+                  "itemKey": "$gen_thresholds__ResourceId_2",
+                  "sortOrder": 2
+                }
+              ]
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "1"
+      },
+      "name": "KeyVault"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.network/networksecuritygroups\"\r\n  | project id, name",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where _ResourceId  has \"networkSecurityGroups\"\r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0d8\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0d8\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0d8\"},{\"originalName\":\"[query - 1]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0d8\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "3"
+      },
+      "name": "NSG"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.network/networkwatchers\"\r\n  | project id, name",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where _ResourceId  has \"networkwatchers\"\r\n| distinct _ResourceId",
+              "size": 0,
+              "showAnalytics": true,
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0ef\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0ef\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0ef\"},{\"originalName\":\"[query - 1]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c0ef\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": " Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "4"
+      },
+      "name": "networkwatchers"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.sql/servers\"\r\n   | project id, name",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where _ResourceId  has \"providers/Microsoft.Sql/\"\r\n| distinct _ResourceId",
+              "size": 0,
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c103\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c103\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c103\"},{\"originalName\":\"[query - 1]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c103\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": " Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "5"
+      },
+      "name": "SQLServers"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.web/sites\"\r\n   | project id, name",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where _ResourceId  has \"Microsoft.Web\"\r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c11b\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c11b\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c11b\"},{\"originalName\":\"[query - 1]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c11b\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "6"
+      },
+      "name": "WebApp"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.logic/workflows\"\r\n   | project id, name",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where ResourceType == \"WORKFLOWS/RUNS\" \r\n| distinct workflowId_s",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "8888"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c130\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"workflowId_s\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c130\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c130\"},{\"originalName\":\"[query - 1].workflowId_s\",\"mergedName\":\"workflowId_s\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c130\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "workflowId_s",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "workflowId_s",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "7"
+      },
+      "name": "LogicApp"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.eventhub/namespaces\"\r\n   | project id, name\r\n",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where _ResourceId  has \"Microsoft.EventHub/namespaces\"\r\n| distinct _ResourceId\r\n",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c146\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c146\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c146\"},{\"originalName\":\"[query - 1]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"5ba85fb9-7059-4806-b4ce-5f9ef270c146\"}]}",
+              "size": 0,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "8"
+      },
+      "name": "EventHub"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": []
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tag",
+        "comparison": "isEqualTo",
+        "value": "9"
+      },
+      "name": "DDOS"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.network/azurefirewalls\"\r\n | project id , name",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where ResourceType == \"AZUREFIREWALLS\" \r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"55dfe6b3-1ffe-4a4f-bae2-89a4e711109a\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"55dfe6b3-1ffe-4a4f-bae2-89a4e711109a\"},{\"originalName\":\"[query - 0].name\",\"mergedName\":\"name\",\"fromId\":\"55dfe6b3-1ffe-4a4f-bae2-89a4e711109a\"},{\"originalName\":\"[query - 1]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"55dfe6b3-1ffe-4a4f-bae2-89a4e711109a\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "name"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "9"
+      },
+      "name": "AzureFW"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.network/publicipaddresses\"\r\n | distinct id",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "showPin": false,
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where ResourceType == \"PUBLICIPADDRESSES\" \r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"b6018104-e8e5-4876-9372-add989178082\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 0\",\"rightTable\":\"query - 1\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 0].id\",\"mergedName\":\"id\",\"fromId\":\"b6018104-e8e5-4876-9372-add989178082\"},{\"originalName\":\"[query - 1]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"b6018104-e8e5-4876-9372-add989178082\"}]}",
+              "size": 3,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not Connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "10"
+      },
+      "name": "PublicIP"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.network/frontdoors\"\r\n  | distinct id",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 17"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where ResourceType == \"FRONTDOORS\"\r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 18"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"b6018104-e8e5-4876-9372-add9891780a1\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 17\",\"rightTable\":\"query - 18\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 17].id\",\"mergedName\":\"id\",\"fromId\":\"b6018104-e8e5-4876-9372-add9891780a1\"},{\"originalName\":\"[query - 18]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"b6018104-e8e5-4876-9372-add9891780a1\"}]}",
+              "size": 0,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 19"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "11"
+      },
+      "name": "FrontDoor"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.datafactory/factories\"\r\n  | distinct id",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 18"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "ADFPipelineRun \r\n| distinct ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 19"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"b6018104-e8e5-4876-9372-add989178132\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 18\",\"rightTable\":\"query - 19\",\"leftColumn\":\"id\",\"rightColumn\":\"ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 18].id\",\"mergedName\":\"id\",\"fromId\":\"b6018104-e8e5-4876-9372-add989178132\"},{\"originalName\":\"[query - 19].ResourceId\",\"mergedName\":\"ResourceId\",\"fromId\":\"b6018104-e8e5-4876-9372-add989178132\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 20"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "12"
+      },
+      "name": "DataFactory"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.datalakestore/accounts\"\r\n | distinct id",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 19"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where ResourceProvider == \"MICROSOFT.DATALAKESTORE\" \r\n| where ResourceType == \"ACCOUNTS\"\r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 20"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"b6018104-e8e5-4876-9372-add989178156\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 19\",\"rightTable\":\"query - 20\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 19].id\",\"mergedName\":\"id\",\"fromId\":\"b6018104-e8e5-4876-9372-add989178156\"},{\"originalName\":\"[query - 20]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"b6018104-e8e5-4876-9372-add989178156\"}]}",
+              "size": 2,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 21"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "13"
+      },
+      "name": "DataLakeStore"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources \r\n | where type == \"microsoft.network/loadbalancers\"\r\n | distinct id",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 20"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where ResourceType == \"LoadBalancer\"\r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 21"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"b6018104-e8e5-4876-9372-add989178179\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 20\",\"rightTable\":\"query - 21\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 20].id\",\"mergedName\":\"id\",\"fromId\":\"b6018104-e8e5-4876-9372-add989178179\"},{\"originalName\":\"[query - 21]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"b6018104-e8e5-4876-9372-add989178179\"}]}",
+              "size": 0,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 22"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "14"
+      },
+      "name": "Loadbalancers"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.dbformysql/servers\"\r\n | distinct id",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 21"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AzureDiagnostics\r\n| where Category == \"MySqlAuditLogs\"\r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 0
+              },
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 22"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"95dc95ae-e727-4b45-88d9-cc508451a08c\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 21\",\"rightTable\":\"query - 22\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 21].id\",\"mergedName\":\"id\",\"fromId\":\"95dc95ae-e727-4b45-88d9-cc508451a08c\"},{\"originalName\":\"[query - 22]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"95dc95ae-e727-4b45-88d9-cc508451a08c\"}]}",
+              "size": 0,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "name": "query - 23"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "15"
+      },
+      "name": "MYSQL"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n | where type == \"microsoft.containerregistry/registries\"\r\n | distinct id",
+              "size": 0,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "9999"
+            },
+            "name": "query - 22"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "ContainerRegistryLoginEvents \r\n| distinct _ResourceId",
+              "size": 0,
+              "timeContext": {
+                "durationMs": 604800000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{DefaultWorkspace}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "id",
+              "comparison": "isEqualTo",
+              "value": "999"
+            },
+            "name": "query - 23"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"c3e1bd11-f76b-4ac2-b8b9-36dedb9630af\",\"mergeType\":\"leftouter\",\"leftTable\":\"query - 22\",\"rightTable\":\"query - 23\",\"leftColumn\":\"id\",\"rightColumn\":\"_ResourceId\"}],\"projectRename\":[{\"originalName\":\"[query - 22].id\",\"mergedName\":\"id\",\"fromId\":\"c3e1bd11-f76b-4ac2-b8b9-36dedb9630af\"},{\"originalName\":\"[query - 23]._ResourceId\",\"mergedName\":\"_ResourceId\",\"fromId\":\"c3e1bd11-f76b-4ac2-b8b9-36dedb9630af\"}]}",
+              "size": 0,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "id",
+                    "formatter": 0,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "_ResourceId",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "showIcon": true,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "is Empty",
+                          "representation": "redBright",
+                          "text": "Not connected to Sentinel"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "Sending logs to Sentinel"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id"
+                  },
+                  {
+                    "columnId": "_ResourceId",
+                    "label": "Monitored By Sentinel"
+                  }
+                ]
+              }
+            },
+            "showPin": false,
+            "name": "query - 24"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "Tab",
+        "comparison": "isEqualTo",
+        "value": "16"
+      },
+      "name": "ACR"
+    }
+  ],
+  "fromTemplateId": "sentinel-UserWorkbook",
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}
